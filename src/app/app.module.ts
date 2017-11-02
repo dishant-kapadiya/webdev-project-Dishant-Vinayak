@@ -1,8 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {Routing} from './app.routing';
 import { AppComponent } from './app.component';
 import { POCComponent } from './poc/poc.component';
+import {HttpModule} from '@angular/http';
+import {FormsModule} from '@angular/forms';
+import {PocServiceClient} from "./services/poc.service.client";
 
 @NgModule({
   declarations: [
@@ -10,9 +13,12 @@ import { POCComponent } from './poc/poc.component';
     POCComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpModule,
+    FormsModule,
+    Routing
   ],
-  providers: [],
+  providers: [PocServiceClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
