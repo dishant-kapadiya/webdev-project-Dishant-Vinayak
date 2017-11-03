@@ -22,8 +22,9 @@ export class POCComponent implements OnInit {
         console.log(data);
         let val = data._body;
         val = JSON.parse(val);
-        console.log('Val is ' + val);
-        this.movies = val.result;
+        // console.log('Val is ' + JSON.stringify(val));
+        this.movies = val.results;
+        console.log('Final movie list ' + JSON.stringify(this.movies));
       }
     );
   }

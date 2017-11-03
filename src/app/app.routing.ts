@@ -8,7 +8,7 @@ import {POCComponent} from './components/poc/poc.component';
 
 
 const APP_ROUTES: Routes = [
-    { path : 'poc', component: POCComponent},
+    { path : '', component: POCComponent},
 ];
 
 // Export the routes as module providers

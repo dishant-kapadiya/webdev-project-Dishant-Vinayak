@@ -1,13 +1,27 @@
-<div ng-controller="mediaController as model"
-     class="container-fluid">
-  <h1>TMDB Media Base</h1>
-  <div class="row">
-    <div class="col-xs-4">
+
+  <h1>Proof Of Concept - TMDB API</h1>
+  <div class="container">
       <h2><label for="search-box">Search</label></h2>
-      <input [(ngModel)]="title" id="search-box" name="title"  class="form-control"/>
+      <input [(ngModel)]="title" id="search-box" name="title"  class="form-control bottom-buffer"/>
       <button (click)="searchMovies()" class="btn btn-primary btn-block">
         Search
       </button>
-    </div>
   </div>
-</div>
+  <div class="container-fluid">
+      <ul class="list-group">
+          <li *ngFor="let movie of movies" class="list-group-item media">
+              <div class="media-right">
+                  <img src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" width="50px"/>
+              </div>
+              <div class="media-body">
+                  <h4>{{movie.title}}</h4>
+                  <p>{{movie.overview}}</p>
+              </div>
+          </li>
+      </ul>
+  </div>
+
+
+
+
+
