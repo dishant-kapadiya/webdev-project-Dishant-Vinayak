@@ -44,7 +44,7 @@ app.get('/healthCheck', function(req, res){
         'message': 'healthy'
     });
 });
-require("./server/app")(app);
+require("./services/POC")(app);
 
 
 // For Build: Catch all other routes and return the index file -- BUILDING
