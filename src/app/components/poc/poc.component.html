@@ -2,19 +2,23 @@
   <h1>Proof Of Concept - TMDB API</h1>
   <div class="container">
       <h2><label for="search-box">Search</label></h2>
-      <input [(ngModel)]="title" id="search-box" name="title"  class="form-control bottom-buffer"/>
+      <input [(ngModel)]="title" id="search-box" name="title"  class="form-control bottom-buffer" required placeholder="Enter a movie title (e.g. Batman)"/>
       <button (click)="searchMovies()" class="btn btn-primary btn-block">
         Search
       </button>
   </div>
-  <div class="container-fluid">
+  <div class="container" *ngIf="searched">
+      <h5>Found the following results for <i>{{title}}</i></h5>
       <ul class="list-group">
           <li *ngFor="let movie of movies" class="list-group-item media">
               <div class="media-right">
-                  <img src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" width="50px"/>
+                  <a href="https://www.themoviedb.org/movie/{{movie.id}}" target="_blank">
+                  <img src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" width="50px" alt="View on TMdB"/>
+                  </a>
               </div>
               <div class="media-body">
-                  <h4>{{movie.title}}</h4>
+                  <span class="pull-right">{{movie.vote_average}}/10</span>
+                  <h4>{{movie.title}} ({{movie.release_date | date: "yyyy"}})</h4>
                   <p>{{movie.overview}}</p>
               </div>
           </li>

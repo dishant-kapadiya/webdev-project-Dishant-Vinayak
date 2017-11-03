@@ -10,6 +10,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 export class POCComponent implements OnInit {
   movies: any;
   title: string;
+  searched: boolean;
   constructor(private pocService: PocServiceClient) { }
 
   ngOnInit() {
@@ -20,11 +21,11 @@ export class POCComponent implements OnInit {
       (data: any) => {
         console.log('Data here is ');
         console.log(data);
-        let val = data._body;
-        val = JSON.parse(val);
-        // console.log('Val is ' + JSON.stringify(val));
-        this.movies = val.results;
+        let val = data;
+        console.log('Val is ' + JSON.stringify(val));
+        this.movies = val;
         console.log('Final movie list ' + JSON.stringify(this.movies));
+        this.searched = true;
       }
     );
   }
