@@ -1,0 +1,13 @@
+<div ng-controller="mediaController as model"
+     class="container-fluid">
+  <h1>TMDB Media Base</h1>
+  <div class="row">
+    <div class="col-xs-4">
+      <h2><label for="search-box">Search</label></h2>
+      <input [(ngModel)]="title" id="search-box" name="title"  class="form-control"/>
+      <button (click)="searchMovies()" class="btn btn-primary btn-block">
+        Search
+      </button>
+    </div>
+  </div>
+</div>
