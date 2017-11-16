@@ -22,13 +22,9 @@ userModel.findUserById = function (userId) {
 };
 
 userModel.updateUser = function (userId, user) {
-	return userModel.update({_id: userId});
+	return userModel.update({_id: userId}, user);
 };
 
 userModel.deleteUser = function (userId) {
 	return userModel.remove({_id: userId});
 };
-
-function addWebsite(userId, websiteId) {
-	return userModel.update({_id: userId}, {$push: {websites: websiteId}});
-}

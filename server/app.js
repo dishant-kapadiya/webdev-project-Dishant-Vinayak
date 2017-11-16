@@ -4,7 +4,8 @@
 
 module.exports = function (app) {
 	require('./model/models.server');
-	require("./services/search")(app);
+	require("./services/search.service.server")(app);
 	require("./services/user.service.server")(app);
+	require("./services/media.service.server")(app);
 };
 
