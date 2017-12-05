@@ -7,12 +7,20 @@ import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
 import {POCComponent} from './components/poc/poc.component';
 import {PocServiceClient} from './services/poc.service.client';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegisterComponent } from './components/user/register/register.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
+import {UserService} from './services/user.service.client';
+import {SharedService} from "./services/shared.service";
 
 @NgModule({
     // Declare components here
     declarations: [
         AppComponent,
-        POCComponent
+        POCComponent,
+        LoginComponent,
+        RegisterComponent,
+        ProfileComponent
     ],
     imports: [
         BrowserModule,
@@ -21,7 +29,7 @@ import {PocServiceClient} from './services/poc.service.client';
         Routing
     ],
     // Client Side services here
-    providers: [PocServiceClient],
+    providers: [PocServiceClient, UserService, SharedService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

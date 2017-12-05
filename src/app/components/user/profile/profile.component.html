@@ -1,0 +1,60 @@
+<nav class="navbar navbar-fixed-top navbar-custom ">
+  <div class="container-fluid">
+
+
+    <p class="navbar-header pull-left">
+      <a class="navbar-brand glyph-color">
+        <b>Profile</b>
+      </a>
+    </p>
+
+    <p class="navbar-text pull-right">
+      <a (click) = "update()" [routerLink]="['/user', userId]" class="navbar-link">
+        <span class="glyphicon glyphicon-ok glyph-color"></span>
+      </a>
+    </p>
+
+  </div>
+</nav>
+
+
+<div class="container top-margin">
+  <form #f="ngForm">
+
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input [(ngModel)]="email" name="email" type="email" class="form-control bottom-buffer" id="email" placeholder="shamnani.v@husky.neu.edu">
+    </div>
+
+
+
+    <div class="form-group">
+      <label for="first-name">First Name</label>
+      <input [(ngModel)]="firstName" name="firstName" type="text" class="form-control bottom-buffer" id="first-name" placeholder="Vinayak">
+    </div>
+
+
+
+    <div class="form-group">
+      <label for="last-name">Last Name</label>
+      <input [(ngModel)]="lastName" name="lastName"type="text" class="form-control bottom-buffer" id="last-name" placeholder="Shamnani">
+    </div>
+
+    <a class="btn btn-primary btn-block"
+       [routerLink]="['/user/',userId,'website']">Websites</a>
+    <a class="btn btn-danger btn-block bottom-margin"
+       [routerLink]="['/login']" >Logout</a>
+  </form>
+</div>
+
+
+<nav class="navbar navbar-fixed-bottom navbar-custom">
+  <div class="container-fluid">
+    <p class="navbar-text pull-right">
+      <a [routerLink]="['/user/',userId]" class="navbar-link navbar-text pull-right c1-color-black c1-text-bold cl-icon-padding">
+        <span class="glyphicon glyphicon-user glyph-color"></span>
+      </a>
+    </p>
+
+  </div>
+</nav>

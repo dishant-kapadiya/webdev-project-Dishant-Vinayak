@@ -1,0 +1,48 @@
+<div class="container">
+  <div *ngIf="userExistsFlag"
+       class="alert alert-danger">
+    {{userExistsMessage}}
+  </div>
+  <div *ngIf="errorFlag"
+       class="alert alert-danger">
+    {{errorMessage}}
+  </div>
+  <h1>User Registration</h1>
+  <form (ngSubmit) = "register()" #f="ngForm">
+    <input placeholder="Email"
+           name="email"
+           type="text"
+           class="form-control bottom-buffer"
+           ngModel
+           required
+           #email="ngModel"/>
+    <span class="help-block" *ngIf="!email.valid && email.touched">
+      Username cannot be blank!
+    </span>
+    <input placeholder="password"
+           name="password"
+           type="password"
+           class="form-control bottom-buffer"
+           ngModel
+           required
+           #password="ngModel"
+    />
+    <span class="help-block" *ngIf="!password.valid && password.touched">
+      Please enter a valid password!
+   </span>
+    <input placeholder="Verify Password"
+           type="password"
+           name="verifypwd"
+           ngModel
+           required
+           #verifypwd="ngModel"
+           class="form-control bottom-buffer"
+    />
+    <span class="help-block" *ngIf="!verifypwd.valid && verifypwd.touched">
+      Please re-enter your password!
+   </span>
+    <button class="btn btn-primary btn-block bottom-buffer" type="submit" [disabled]="!f.valid">Register</button>
+    <button class="btn btn-danger btn-block bottom-buffer  "
+            [routerLink]="['/login']" >Cancel</button>
+  </form>
+</div>

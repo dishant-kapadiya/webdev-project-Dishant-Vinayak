@@ -8,11 +8,11 @@ module.exports = function (app) {
 	app.put('/api/v1/media/:mediaId', updateMedia);
 	app.delete('/api/v1/media/:mediaId', deleteMedia);
 
-	app.post('/api/owner/:ownerId/website', createWebsite);
-	app.get('/api/owner/:ownerId/website', findWebsitesByowner);
-	app.get('/api/website/:websiteId', findWebsiteById);
-	app.put('/api/website/:websiteId', updateWebsite);
-	app.delete('/api/website/:websiteId', deleteWebsite);
+	// app.post('/api/owner/:ownerId/website', createWebsite);
+	// app.get('/api/owner/:ownerId/website', findWebsitesByowner);
+	// app.get('/api/website/:websiteId', findWebsiteById);
+	// app.put('/api/website/:websiteId', updateWebsite);
+	// app.delete('/api/website/:websiteId', deleteWebsite);
 	
 
 	function createMedia(req, res) {

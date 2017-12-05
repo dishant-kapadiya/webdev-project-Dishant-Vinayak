@@ -1,0 +1,26 @@
+<div class="container">
+  <div *ngIf="errorFlag"
+       class="alert alert-danger">
+    {{errorMsg}}
+  </div>
+
+  <h1>Login</h1>
+  <form #f="ngForm">
+    <input placeholder="email"
+           name="email"
+           type="text"
+           class="form-control bottom-buffer"
+           ngModel required autofocus
+           #email="ngModel"/>
+    <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a username! </span>
+    <input placeholder="password"
+           type="password"
+           name="password"
+           ngModel
+           class="form-control bottom-buffer"
+           #password="ngModel" required/>
+    <span class="help-block" *ngIf="!password.valid && password.touched">Please enter a password! </span>
+    <button class="btn btn-primary btn-block bottom-buffer" (click)="login()" [disabled]="!f.valid">Login</button>
+    <button class="btn btn-success btn-block bottom-buffer" [routerLink]="['/register']" >Register</button>
+  </form>
+</div>
