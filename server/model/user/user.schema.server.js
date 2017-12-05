@@ -5,8 +5,13 @@ module.exports = mongoose.Schema({
 	email: String,
 	password: String,
 	phone: String,
+    role: {
+        type: String,
+        default: 'Fan',
+        enum: ['Fan', 'Critic', 'Admin']
+    },
 	genre: {type: [String], default: []},
-	follows: {type: mongoose.Schema.ObjectId, ref: 'user'},
-	followers: {type: mongoose.Schema.ObjectId, ref: 'user'},
+	follows: {type: mongoose.Schema.ObjectId, ref: 'UserModel'},
+	followers: {type: mongoose.Schema.ObjectId, ref: 'UserModel'},
 	dateCreated: {type: Date, default: Date.now()}
 }, {collection: 'user'});

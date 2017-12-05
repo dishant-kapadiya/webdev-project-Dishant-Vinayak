@@ -12,6 +12,7 @@ import { RegisterComponent } from './components/user/register/register.component
 import { ProfileComponent } from './components/user/profile/profile.component';
 import {UserService} from './services/user.service.client';
 import {SharedService} from "./services/shared.service";
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
     // Declare components here
@@ -20,7 +21,8 @@ import {SharedService} from "./services/shared.service";
         POCComponent,
         LoginComponent,
         RegisterComponent,
-        ProfileComponent
+        ProfileComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,

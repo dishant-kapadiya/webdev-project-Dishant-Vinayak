@@ -1,0 +1,54 @@
+<div class="container-fluid custom-center-container">
+
+    <nav class="navbar navbar-fixed-top navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand pull-left" [routerLink]="['/home']">
+                <span
+                    class="glyphicon glyphicon-home pull-left glyph-color">
+
+                </span>
+            </a>
+            <a class="navbar-brand pull-right" [routerLink]="['/register']">
+                <span
+                        class="glyphicon glyphicon-user pull-right glyph-color"> Register</span>
+
+            </a>
+            <a class="navbar-brand pull-right" [routerLink]="['/login']">
+                <span
+                    class="glyphicon glyphicon-log-in pull-right glyph-color"> Login</span>
+
+            </a>
+
+        </div>
+    </nav>
+</div>
+
+<div class="input-group input-group-lg top-margin">
+    <input type="text" [(ngModel)]="title" class="form-control" placeholder="Search movies by title">
+    <span class="input-group-btn">
+                <a class="btn btn-warning" type="button" (click)="searchMovies()"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
+            </span>
+</div>
+
+<div class="container" *ngIf="searched">
+    <h5>Found the following results for <i>{{title}}</i></h5>
+    <ul class="list-group">
+        <li *ngFor="let movie of movies" class="list-group-item ">
+
+            <div class="media-left media-middle">
+                <a href="https://www.themoviedb.org/movie/{{movie.id}}" target="_blank">
+                    <img src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" width="50px" alt="View on TMdB"/>
+                </a>
+            </div>
+            <div class="media-body">
+                <span class="pull-right"> {{movie.vote_average}}/10</span>
+                <h2 class="media-heading">{{movie.title}} ({{movie.release_date | date: "yyyy"}})</h2>
+                {{movie.overview}}
+
+
+
+            </div>
+
+        </li>
+    </ul>
+</div>

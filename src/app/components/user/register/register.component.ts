@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
     verifypwd: string;
     errorFlag: boolean;
     userExistsFlag: boolean;
+    role: string;
     errorMessage = 'Passwords do not match';
     userExistsMessage = 'Username not available. Choose a different username.';
     @ViewChild('f') registrationForm: NgForm;
@@ -31,6 +32,7 @@ export class RegisterComponent implements OnInit {
         this.email = this.registrationForm.value.email;
         this.password = this.registrationForm.value.password;
         this.verifypwd = this.registrationForm.value.verifypwd;
+        this.role = this.registrationForm.value.role;
         console.log('Email and password here are ' + this.email + ' and ' + this.password);
         const user2 = this.userService.findUserByEmail(this.email)
             .subscribe(
@@ -39,7 +41,7 @@ export class RegisterComponent implements OnInit {
                 },
                 (error:any)=>{
                     if (this.password === this.verifypwd){
-                        let user = {email: this.email, password: this.password, firstName: '', lastName: ''};
+                        let user = {email: this.email, password: this.password, firstName: '', lastName: '', role: this.role};
                         this.userService.createUser(user)
                             .subscribe(
                                 (user2: any) => {
