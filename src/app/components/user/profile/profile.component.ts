@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../../services/user.service.client';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {Title} from "@angular/platform-browser";
 import {SharedService} from "../../../services/shared.service";
@@ -19,7 +19,9 @@ export class ProfileComponent implements OnInit {
     lastName: string;
     @ViewChild('f') profileForm: NgForm;
 
-    constructor(private userService: UserService, private activatedRoute: ActivatedRoute, private titleService: Title, private sharedService: SharedService) { }
+    constructor(private userService: UserService, private activatedRoute: ActivatedRoute, private titleService: Title,
+                private sharedService: SharedService, private router: Router) {
+    }
 
     ngOnInit() {
         this.titleService.setTitle('User Profile');
@@ -28,6 +30,7 @@ export class ProfileComponent implements OnInit {
         this.email = this.user['email'];
         this.firstName = this.user['firstName'];
         this.lastName = this.user['lastName'];
+        this.userId = this.user['_id'];
         // this.activatedRoute.params.subscribe(params => {
         //     this.user = this.userService.findUserById(this.userId).subscribe(
         //         (user: any) => {
@@ -43,6 +46,7 @@ export class ProfileComponent implements OnInit {
 
 
     }
+
     update() {
         this.user['email'] = this.profileForm.value.email;
         this.user['firstName'] = this.profileForm.value.firstName;
@@ -54,10 +58,22 @@ export class ProfileComponent implements OnInit {
                     if (updatedUser) {
                         console.log('Inside update');
                         this.user = updatedUser;
-                    } },
+                    }
+                },
                 (err) => {
                 }
             );
 
+    }
+
+    logout() {
+        this.userService.logout()
+            .subscribe(
+                (updatedUser) => {
+                    this.router.navigate(['/login']);
+                },
+                (err) => {
+                }
+            );
     }
 }

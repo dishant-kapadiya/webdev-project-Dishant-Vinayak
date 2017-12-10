@@ -49,7 +49,7 @@ module.exports = function (app) {
 	});
 
 	passport.use(new LocalStrategy((username, password, done) => {
-			userModel.findUserByUsername(username)
+			userModel.findUserByEmail(username)
 				.then(function (user) {
 						if(user && bcrypt.compareSync(password, user.password)) {
 							return done(null, user);

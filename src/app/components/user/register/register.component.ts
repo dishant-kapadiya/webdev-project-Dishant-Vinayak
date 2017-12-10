@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service.client';
 import {NgForm} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
-
 
 
 @Component({
@@ -19,9 +18,11 @@ export class RegisterComponent implements OnInit {
     userExistsFlag: boolean;
     role: string;
     errorMessage = 'Passwords do not match';
-    userExistsMessage = 'Username not available. Choose a different username.';
+    userExistsMessage = 'Email already registered. Choose a different username.';
     @ViewChild('f') registrationForm: NgForm;
-    constructor(private router: Router, private userService: UserService, private titleService: Title) { }
+
+    constructor(private router: Router, private userService: UserService, private titleService: Title) {
+    }
 
     ngOnInit() {
         this.titleService.setTitle('Register');
@@ -36,23 +37,29 @@ export class RegisterComponent implements OnInit {
         console.log('Email and password here are ' + this.email + ' and ' + this.password);
         const user2 = this.userService.findUserByEmail(this.email)
             .subscribe(
-                (user: any)=> {
+                (user: any) => {
                     this.userExistsFlag = true;
                 },
-                (error:any)=>{
-                    if (this.password === this.verifypwd){
-                        let user = {email: this.email, password: this.password, firstName: '', lastName: '', role: this.role};
-                        this.userService.createUser(user)
+                (error: any) => {
+                    let user = {
+                        email: this.email,
+                        password: this.password,
+                        firstName: '',
+                        lastName: '',
+                        role: this.role
+                    };
+                    if (this.password === this.verifypwd) {
+                        this.userService.register(this.email, this.password)
                             .subscribe(
                                 (user2: any) => {
-                                    this.router.navigate(['/user', user2._id]);
+                                    this.router.navigate(['/profile']);
                                 },
                                 (error: any) => {
                                     this.errorFlag = true;
                                     this.errorMessage = 'Error registering';
                                 }
                             );
-                    } else{
+                    } else {
                         this.errorFlag = true;
                     }
                 }

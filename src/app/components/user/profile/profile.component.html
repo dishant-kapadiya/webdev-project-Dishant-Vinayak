@@ -9,7 +9,7 @@
     </p>
 
     <p class="navbar-text pull-right">
-      <a (click) = "update()" [routerLink]="['/user', userId]" class="navbar-link">
+      <a (click) = "update()" [routerLink]="['/profile']" class="navbar-link">
         <span class="glyphicon glyphicon-ok glyph-color"></span>
       </a>
     </p>
@@ -43,7 +43,7 @@
     <a class="btn btn-primary btn-block"
        [routerLink]="['/user/',userId,'website']">Websites</a>
     <a class="btn btn-danger btn-block bottom-margin"
-       [routerLink]="['/login']" >Logout</a>
+       (click)="logout()">Logout</a>
   </form>
 </div>
 
