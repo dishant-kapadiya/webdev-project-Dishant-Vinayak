@@ -84,12 +84,14 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_user_profile_profile_component__ = __webpack_require__("../../../../../src/app/components/user/profile/profile.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__services_user_service_client__ = __webpack_require__("../../../../../src/app/services/user.service.client.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__services_shared_service__ = __webpack_require__("../../../../../src/app/services/shared.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_home_home_component__ = __webpack_require__("../../../../../src/app/components/home/home.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -116,7 +118,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_6__components_poc_poc_component__["a" /* POCComponent */],
             __WEBPACK_IMPORTED_MODULE_8__components_user_login_login_component__["a" /* LoginComponent */],
             __WEBPACK_IMPORTED_MODULE_9__components_user_register_register_component__["a" /* RegisterComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__components_user_profile_profile_component__["a" /* ProfileComponent */]
+            __WEBPACK_IMPORTED_MODULE_10__components_user_profile_profile_component__["a" /* ProfileComponent */],
+            __WEBPACK_IMPORTED_MODULE_13__components_home_home_component__["a" /* HomeComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -144,6 +147,7 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_user_login_login_component__ = __webpack_require__("../../../../../src/app/components/user/login/login.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_user_register_register_component__ = __webpack_require__("../../../../../src/app/components/user/register/register.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_user_profile_profile_component__ = __webpack_require__("../../../../../src/app/components/user/profile/profile.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_home_home_component__ = __webpack_require__("../../../../../src/app/components/home/home.component.ts");
 /**
  * Created by sesha on 7/26/17.
  */
@@ -152,9 +156,10 @@ AppModule = __decorate([
 
 
 
+
 var APP_ROUTES = [
     { path: 'poc', component: __WEBPACK_IMPORTED_MODULE_1__components_poc_poc_component__["a" /* POCComponent */] },
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_2__components_user_login_login_component__["a" /* LoginComponent */] },
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_5__components_home_home_component__["a" /* HomeComponent */] },
     { path: 'login', component: __WEBPACK_IMPORTED_MODULE_2__components_user_login_login_component__["a" /* LoginComponent */] },
     { path: 'register', component: __WEBPACK_IMPORTED_MODULE_3__components_user_register_register_component__["a" /* RegisterComponent */] },
     { path: 'user/:uid', component: __WEBPACK_IMPORTED_MODULE_4__components_user_profile_profile_component__["a" /* ProfileComponent */] }
@@ -162,6 +167,84 @@ var APP_ROUTES = [
 // Export the routes as module providers
 var Routing = __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* RouterModule */].forRoot(APP_ROUTES);
 //# sourceMappingURL=app.routing.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/home/home.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/home/home.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-fluid custom-center-container\">\n\n    <nav class=\"navbar navbar-fixed-top navbar-custom\">\n        <div class=\"container-fluid\">\n            <a class=\"navbar-brand pull-left\" [routerLink]=\"['/home']\">\n                <span\n                    class=\"glyphicon glyphicon-home pull-left glyph-color\">\n\n                </span>\n            </a>\n            <a class=\"navbar-brand pull-right\" [routerLink]=\"['/register']\">\n                <span\n                        class=\"glyphicon glyphicon-user pull-right glyph-color\"> Register</span>\n\n            </a>\n            <a class=\"navbar-brand pull-right\" [routerLink]=\"['/login']\">\n                <span\n                    class=\"glyphicon glyphicon-log-in pull-right glyph-color\"> Login</span>\n\n            </a>\n\n        </div>\n    </nav>\n</div>\n\n<div class=\"input-group input-group-lg top-margin\">\n    <input type=\"text\" [(ngModel)]=\"title\" class=\"form-control\" placeholder=\"Search movies by title\">\n    <span class=\"input-group-btn\">\n                <a class=\"btn btn-warning\" type=\"button\" (click)=\"searchMovies()\"><i class=\"fa fa-search\" aria-hidden=\"true\"></i> Search</a>\n            </span>\n</div>\n\n<div class=\"container\" *ngIf=\"searched\">\n    <h5>Found the following results for <i>{{title}}</i></h5>\n    <ul class=\"list-group\">\n        <li *ngFor=\"let movie of movies\" class=\"list-group-item \">\n\n            <div class=\"media-left media-middle\">\n                <a href=\"https://www.themoviedb.org/movie/{{movie.id}}\" target=\"_blank\">\n                    <img src=\"https://image.tmdb.org/t/p/w500/{{movie.poster_path}}\" width=\"50px\" alt=\"View on TMdB\"/>\n                </a>\n            </div>\n            <div class=\"media-body\">\n                <span class=\"pull-right\"> {{movie.vote_average}}/10</span>\n                <h2 class=\"media-heading\">{{movie.title}} ({{movie.release_date | date: \"yyyy\"}})</h2>\n                {{movie.overview}}\n\n\n\n            </div>\n\n        </li>\n    </ul>\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/home/home.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_poc_service_client__ = __webpack_require__("../../../../../src/app/services/poc.service.client.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var HomeComponent = (function () {
+    function HomeComponent(pocService) {
+        this.pocService = pocService;
+    }
+    HomeComponent.prototype.ngOnInit = function () {
+    };
+    HomeComponent.prototype.searchMovies = function () {
+        var _this = this;
+        this.pocService.findMovies(this.title)
+            .subscribe(function (data) {
+            console.log('Data here is ');
+            console.log(data);
+            var val = data;
+            console.log('Val is ' + JSON.stringify(val));
+            _this.movies = val;
+            console.log('Final movie list ' + JSON.stringify(_this.movies));
+            _this.searched = true;
+        });
+    };
+    return HomeComponent;
+}());
+HomeComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-home',
+        template: __webpack_require__("../../../../../src/app/components/home/home.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/components/home/home.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_poc_service_client__["a" /* PocServiceClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_poc_service_client__["a" /* PocServiceClient */]) === "function" && _a || Object])
+], HomeComponent);
+
+var _a;
+//# sourceMappingURL=home.component.js.map
 
 /***/ }),
 
@@ -463,7 +546,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/user/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div *ngIf=\"userExistsFlag\"\n       class=\"alert alert-danger\">\n    {{userExistsMessage}}\n  </div>\n  <div *ngIf=\"errorFlag\"\n       class=\"alert alert-danger\">\n    {{errorMessage}}\n  </div>\n  <h1>User Registration</h1>\n  <form (ngSubmit) = \"register()\" #f=\"ngForm\">\n    <input placeholder=\"Email\"\n           name=\"email\"\n           type=\"text\"\n           class=\"form-control bottom-buffer\"\n           ngModel\n           required\n           #email=\"ngModel\"/>\n    <span class=\"help-block\" *ngIf=\"!email.valid && email.touched\">\n      Username cannot be blank!\n    </span>\n    <input placeholder=\"password\"\n           name=\"password\"\n           type=\"password\"\n           class=\"form-control bottom-buffer\"\n           ngModel\n           required\n           #password=\"ngModel\"\n    />\n    <span class=\"help-block\" *ngIf=\"!password.valid && password.touched\">\n      Please enter a valid password!\n   </span>\n    <input placeholder=\"Verify Password\"\n           type=\"password\"\n           name=\"verifypwd\"\n           ngModel\n           required\n           #verifypwd=\"ngModel\"\n           class=\"form-control bottom-buffer\"\n    />\n    <span class=\"help-block\" *ngIf=\"!verifypwd.valid && verifypwd.touched\">\n      Please re-enter your password!\n   </span>\n    <button class=\"btn btn-primary btn-block bottom-buffer\" type=\"submit\" [disabled]=\"!f.valid\">Register</button>\n    <button class=\"btn btn-danger btn-block bottom-buffer  \"\n            [routerLink]=\"['/login']\" >Cancel</button>\n  </form>\n</div>"
+module.exports = "<div class=\"container\">\n  <div *ngIf=\"userExistsFlag\"\n       class=\"alert alert-danger\">\n    {{userExistsMessage}}\n  </div>\n  <div *ngIf=\"errorFlag\"\n       class=\"alert alert-danger\">\n    {{errorMessage}}\n  </div>\n  <h1>User Registration</h1>\n  <form (ngSubmit) = \"register()\" #f=\"ngForm\">\n    <input placeholder=\"Email\"\n           name=\"email\"\n           type=\"text\"\n           class=\"form-control bottom-buffer\"\n           ngModel\n           required\n           #email=\"ngModel\"/>\n    <span class=\"help-block\" *ngIf=\"!email.valid && email.touched\">\n      Username cannot be blank!\n    </span>\n    <input placeholder=\"password\"\n           name=\"password\"\n           type=\"password\"\n           class=\"form-control bottom-buffer\"\n           ngModel\n           required\n           #password=\"ngModel\"\n    />\n    <span class=\"help-block\" *ngIf=\"!password.valid && password.touched\">\n      Please enter a valid password!\n   </span>\n    <input placeholder=\"Verify Password\"\n           type=\"password\"\n           name=\"verifypwd\"\n           ngModel\n           required\n           #verifypwd=\"ngModel\"\n           class=\"form-control bottom-buffer\"\n    />\n    <span class=\"help-block\" *ngIf=\"!verifypwd.valid && verifypwd.touched\">\n      Please re-enter your password!\n   </span>\n\n      <select name=\"role\"\n              id=\"role\"\n              class=\"form-control\"\n              ngModel\n              #role=\"ngModel\"\n              placeholder = \"Select Role\"\n              required\n              class=\"form-control bottom-buffer\">\n          <option value=\"\" disabled selected hidden>Select role</option>\n          <option value=\"Fan\">Fan</option>\n          <option value=\"Critic\">Critic</option>\n      </select>\n    <button class=\"btn btn-primary btn-block bottom-buffer\" type=\"submit\" [disabled]=\"!f.valid\">Register</button>\n    <button class=\"btn btn-danger btn-block bottom-buffer  \"\n            [routerLink]=\"['/login']\" >Cancel</button>\n  </form>\n</div>"
 
 /***/ }),
 
@@ -508,13 +591,14 @@ var RegisterComponent = (function () {
         this.email = this.registrationForm.value.email;
         this.password = this.registrationForm.value.password;
         this.verifypwd = this.registrationForm.value.verifypwd;
+        this.role = this.registrationForm.value.role;
         console.log('Email and password here are ' + this.email + ' and ' + this.password);
         var user2 = this.userService.findUserByEmail(this.email)
             .subscribe(function (user) {
             _this.userExistsFlag = true;
         }, function (error) {
             if (_this.password === _this.verifypwd) {
-                var user_1 = { email: _this.email, password: _this.password, firstName: '', lastName: '' };
+                var user_1 = { email: _this.email, password: _this.password, firstName: '', lastName: '', role: _this.role };
                 _this.userService.createUser(user_1)
                     .subscribe(function (user2) {
                     _this.router.navigate(['/user', user2._id]);

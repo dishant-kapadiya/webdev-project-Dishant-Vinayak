@@ -41,6 +41,19 @@
     <span class="help-block" *ngIf="!verifypwd.valid && verifypwd.touched">
       Please re-enter your password!
    </span>
+
+      <select name="role"
+              id="role"
+              class="form-control"
+              ngModel
+              #role="ngModel"
+              placeholder = "Select Role"
+              required
+              class="form-control bottom-buffer">
+          <option value="" disabled selected hidden>Select role</option>
+          <option value="Fan">Fan</option>
+          <option value="Critic">Critic</option>
+      </select>
     <button class="btn btn-primary btn-block bottom-buffer" type="submit" [disabled]="!f.valid">Register</button>
     <button class="btn btn-danger btn-block bottom-buffer  "
             [routerLink]="['/login']" >Cancel</button>
