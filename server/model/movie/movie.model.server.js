@@ -1,30 +1,36 @@
 let mongoose = require('mongoose');
 
-let MovieSchema = require('./movie.schema.server');
-let movieModel = mongoose.model("MovieModel", MovieSchema);
+let movieSchema = require('./movie.schema.server');
+let movieModel = mongoose.model('MovieModel', movieSchema);
 
+movieModel.createMovie = function (movie) {
+	return movieModel.create(movie);
+};
+movieModel.findAllMovies = findAllMovies;
+movieModel.findMovieById = findMovieById;
+movieModel.addRating = addRating;
+movieModel.addReview = addReview;
+movieModel.findMovieByObjectId = findMovieByObjectId;
 module.exports = movieModel;
 
-movieModel.createUser = function (user) {
-	return movieModel.create(user);
-};
 
-movieModel.findUserByEmail = function (userName) {
-	return movieModel.findOne({email: userName});
-};
 
-movieModel.findUserByCredentials = function (username, password) {
-	return movieModel.findOne({email: username, password: password});
-};
+function findMovieById(movieId) {
+	return movieModel.findOne({movieId: movieId});
+}
 
-movieModel.findUserById = function (userId) {
-	return movieModel.findOne({_id: userId});
-};
+function findMovieByObjectId(movieId) {
+	return movieModel.findOne({_id: movieId});
+}
 
-movieModel.updateUser = function (userId, user) {
-	return movieModel.update({_id: userId}, user);
-};
+function findAllMovies() {
+	return movieModel.find();
+}
 
-movieModel.deleteUser = function (userId) {
-	return movieModel.remove({_id: userId});
-};
+function addRating(movieId, rating) {
+	return movieModel.update({'movieId': movieId}, {$push:{ratings:rating.rating}});
+}
+
+function addReview(movieId, review) {
+	return movieModel.update({'movieId': movieId}, {$push: {reviews: review.review}});
+}
