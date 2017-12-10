@@ -9,6 +9,7 @@ module.exports = function (app) {
 
 	app.post('/api/v1/user', createUser);
 	app.get('/api/v1/user', findUser);
+	app.get('/api/v1/allUsers', allUsers);
 	app.get('/api/v1/user/:userId', findUserById);
 	app.put('/api/v1/user/:userId', updateUser);
 	app.delete('/api/v1/user/:userId', deleteUser);
@@ -161,6 +162,18 @@ module.exports = function (app) {
 		} else {
 			findUserByEmail(query, res);
 		}
+	}
+
+	function allUsers(req, res) {
+		userModel.allUsers()
+			.then(function (users){
+				res.status(200).json(users)
+			})
+			.catch(function (error){
+				res.status(404).json({
+					error: "couldn't fetch all users"
+				})
+			})
 	}
 
 	function findUserByEmail(req, res) {

@@ -21,6 +21,10 @@ userModel.findUserById = function (userId) {
 	return userModel.findOne({_id: userId});
 };
 
+userModel.allUsers = function () {
+	return userModel.find({})
+};
+
 userModel.updateUser = function (userId, user) {
 	return userModel.update({_id: userId}, user);
 };
