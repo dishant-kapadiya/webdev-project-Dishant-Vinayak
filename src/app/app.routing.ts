@@ -14,7 +14,7 @@ import {AuthGuard} from "./services/auth.service";
 
 const APP_ROUTES: Routes = [
     { path : 'poc', component: POCComponent},
-    {path: '', component : HomeComponent, canActivate: [AuthGuard]},
+    {path: '', component : HomeComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}

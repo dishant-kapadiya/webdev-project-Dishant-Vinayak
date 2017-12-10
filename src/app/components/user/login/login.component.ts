@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
           .subscribe(
               (user: any) => {
                   this.errorFlag = false;
-                  this.router.navigate(['/profile']);
+                  this.router.navigate(['']);
               },
               (error: any) => {
                   this.errorFlag = true;

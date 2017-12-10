@@ -8,24 +8,33 @@
 
                 </span>
             </a>
-            <a class="navbar-brand pull-right" [routerLink]="['/register']">
+            <a class="navbar-brand pull-right" *ngIf="!loggedIn" [routerLink]="['/register']">
                 <span
                         class="glyphicon glyphicon-user pull-right glyph-color"> Register</span>
 
             </a>
-            <a class="navbar-brand pull-right" [routerLink]="['/login']">
+            <a class="navbar-brand pull-right" *ngIf="!loggedIn" [routerLink]="['/login']">
                 <span
                     class="glyphicon glyphicon-log-in pull-right glyph-color"> Login</span>
 
             </a>
+            <a class="navbar-brand pull-right" *ngIf="loggedIn" [routerLink]="['/profile']">
+                <span
+                        class="glyphicon glyphicon-user pull-right glyph-color"> Profile</span>
 
+            </a>
+            <a class="navbar-brand pull-right" *ngIf="loggedIn" (click)="logout()">
+                <span
+                        class="glyphicon glyphicon-log-out pull-right glyph-color" (click)="logout()"> Logout</span>
+
+            </a>
         </div>
     </nav>
 </div>
 
 <div class = "top-margin">
     <div class="page-header ">
-        <h3> Welcome <span> Guest </span> </h3>
+        <h3> Welcome <span *ngIf="!loggedIn"> Guest </span> <span *ngIf="loggedIn">{{email}}</span></h3>
     </div>
 </div>
 

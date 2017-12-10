@@ -13,12 +13,13 @@ export class UserService {
 
     baseUrl = environment.baseUrl;
     options = new RequestOptions();
+
     login(email: String, password: String) {
         this.options.withCredentials = true;
 
         const body = {
-            username : email,
-            password : password
+            username: email,
+            password: password
         };
         return this._http.post(this.baseUrl + '/api/v1/login', body, this.options)
             .map(
@@ -42,8 +43,8 @@ export class UserService {
     register(email: String, password: String) {
         this.options.withCredentials = true;
         const user = {
-            email : email,
-            password : password
+            email: email,
+            password: password
         };
 
         return this._http.post(this.baseUrl + '/api/v1/register', user, this.options)
@@ -71,6 +72,7 @@ export class UserService {
                 }
             );
     }
+
     createUser(user: any) {
         return this._http.post(this.baseUrl + '/api/v1/user', user)
             .map(
