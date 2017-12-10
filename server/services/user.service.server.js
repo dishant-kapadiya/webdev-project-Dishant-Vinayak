@@ -26,9 +26,9 @@ module.exports = function (app) {
 	}));
 
 	let facebookConfig = {
-		clientID: process.env.FACEBOOK_CLIENT_ID,
-		clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-		callbackURL: process.env.FACEBOOK_CALLBACK_URL
+		clientID: "lasjdlfkjalskndfbsldkfn",
+		clientSecret: "kajsdfljaslkdfjalsjdflk",
+		callbackURL: "lkajsdlfjalskndfkjsjdfbkajsndfh"
 	};
 
 	passport.serializeUser((user, done) => {
