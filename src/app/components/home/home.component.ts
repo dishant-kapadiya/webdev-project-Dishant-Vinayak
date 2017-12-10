@@ -24,17 +24,19 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.userService.loggedIn();
-        if (this.sharedService.user === '0') {
-        this.loggedIn = false;
-    } else {
+        // this.userService.loggedIn();
+        if (this.sharedService.user) {
             this.loggedIn = true;
-            }
+            this.email = this.sharedService.user['email'];
+        } else {
+            this.loggedIn = false;
+        }
         console.log('User is ' + JSON.stringify(this.sharedService.user));
         this.findMostPopular();
         this.findHighestGrossing();
         this.findLatestRelease();
     }
+
     searchMovies() {
         this.pocService.findMovies(this.title)
             .subscribe(
