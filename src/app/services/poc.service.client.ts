@@ -22,7 +22,7 @@ export class PocServiceClient {
 
     findMovies(title: string) {
         console.log('baseUrl ' + this.baseUrl);
-        return this._http.post(this.baseUrl + 'api/v1/search/movies', {query: title})
+        return this._http.post(this.baseUrl + '/api/v1/search/movies', {query: title})
             .map(
                 (res: Response) => {
                     const data = res.json();

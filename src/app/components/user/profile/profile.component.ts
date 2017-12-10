@@ -3,6 +3,7 @@ import {UserService} from '../../../services/user.service.client';
 import {ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {Title} from "@angular/platform-browser";
+import {SharedService} from "../../../services/shared.service";
 
 @Component({
     selector: 'app-profile',
@@ -18,27 +19,27 @@ export class ProfileComponent implements OnInit {
     lastName: string;
     @ViewChild('f') profileForm: NgForm;
 
-    constructor(private userService: UserService, private activatedRoute: ActivatedRoute, private titleService: Title) { }
+    constructor(private userService: UserService, private activatedRoute: ActivatedRoute, private titleService: Title, private sharedService: SharedService) { }
 
     ngOnInit() {
         this.titleService.setTitle('User Profile');
-        this.activatedRoute.params.subscribe(params => {
-            this.userId = params['uid'];
-            console.log('User Id is ' + this.userId);
-            this.user = this.userService.findUserById(this.userId).subscribe(
-                (user: any) => {
-                    this.user = user;
-                    this.email = this.user['email'];
-                    this.firstName = this.user['firstName'];
-                    this.lastName = this.user['lastName'];
-                    console.log('Found user ' + JSON.stringify(this.user));
-                },
-                (error: any) => {
-                    console.log(error);
-
-                }
-            );
-        });
+        this.user = this.sharedService.user;
+        console.log('The user is' + JSON.stringify(this.user));
+        this.email = this.user['email'];
+        this.firstName = this.user['firstName'];
+        this.lastName = this.user['lastName'];
+        // this.activatedRoute.params.subscribe(params => {
+        //     this.user = this.userService.findUserById(this.userId).subscribe(
+        //         (user: any) => {
+        //             this.user = user;
+        //             console.log('Found user ' + JSON.stringify(this.user));
+        //         },
+        //         (error: any) => {
+        //             console.log(error);
+        //
+        //         }
+        //     );
+        // });
 
 
     }

@@ -13,6 +13,7 @@ import { ProfileComponent } from './components/user/profile/profile.component';
 import {UserService} from './services/user.service.client';
 import {SharedService} from "./services/shared.service";
 import { HomeComponent } from './components/home/home.component';
+import {AuthGuard} from "./services/auth.service";
 
 @NgModule({
     // Declare components here
@@ -31,7 +32,7 @@ import { HomeComponent } from './components/home/home.component';
         Routing
     ],
     // Client Side services here
-    providers: [PocServiceClient, UserService, SharedService],
+    providers: [PocServiceClient, UserService, SharedService, AuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule {

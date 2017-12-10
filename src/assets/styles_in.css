@@ -176,3 +176,12 @@ ul
     display: -ms-flexbox;
     display:         flex;
 }
+
+h3 {
+    color: #404040;
+}
+h2 {
+    color: #404040;
+}
+
+

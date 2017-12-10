@@ -12,7 +12,65 @@ export class UserService {
     }
 
     baseUrl = environment.baseUrl;
+    options = new RequestOptions();
+    login(username: String, password: String) {
+        this.options.withCredentials = true;
 
+        const body = {
+            username : username,
+            password : password
+        };
+        return this._http.post(this.baseUrl + '/api/v1/login', body, this.options)
+            .map(
+                (res: Response) => {
+                    const data = res.json();
+                    return data;
+                }
+            );
+    }
+
+    logout() {
+        this.options.withCredentials = true;
+        return this._http.post(this.baseUrl + '/api/v1/logout', '', this.options)
+            .map(
+                (res: Response) => {
+                    const data = res;
+                }
+            );
+    }
+
+    register(username: String, password: String) {
+        this.options.withCredentials = true;
+        const user = {
+            username : username,
+            password : password
+        };
+
+        return this._http.post(this.baseUrl + '/api/v1/register', user, this.options)
+            .map(
+                (res: Response) => {
+                    const data = res.json();
+                    return data;
+                }
+            );
+    }
+
+    loggedIn() {
+        this.options.withCredentials = true;
+        return this._http.post(this.baseUrl + '/api/v1/loggedIn', '', this.options)
+            .map(
+                (res: Response) => {
+                    const user = res.json();
+                    if (user !== 0) {
+                        this.sharedService.user = user; // setting user so as to share with all components
+                        return true;
+                    } else {
+                        this.router.navigate(['/login']);
+                        return false;
+                    }
+                }
+            );
+    }
     createUser(user: any) {
         return this._http.post(this.baseUrl + '/api/v1/user', user)
             .map(
