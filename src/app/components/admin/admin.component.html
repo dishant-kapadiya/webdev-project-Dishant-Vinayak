@@ -1,0 +1,90 @@
+<h1>
+  Welcome to Admin Page
+</h1>
+
+<h3>List of Users is:</h3>
+
+
+<div class="container">
+    <h1>Manage Users</h1>
+
+    <ul class="list-group">
+        <li class="list-group-item list-header">
+            <div class="row">
+                <div class="col-xs-3">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-xs-3">
+                    <label for="firstname">First Name</label>
+                </div>
+                <div class="col-xs-3">
+                    <label for="lastname">Last Name</label>
+                </div>
+                <div class="col-xs-1">
+                    <label for="role">Role</label>
+                </div>
+                <div class="col-xs-1">
+
+                </div>
+                <div class="col-xs-1">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <input  [(ngModel)]="email"
+                           id="email"
+                           class="form-control" />
+                </div>
+                <div class="col-xs-3">
+                    <input  [(ngModel)]="firstName"
+                           id="firstname"
+                           class="form-control" />
+                </div>
+                <div class="col-xs-3">
+                    <input  [(ngModel)]="lastName"
+                           id="lastname"
+                           class="form-control" />
+                </div>
+                <div class="col-xs-1">
+                    <input  [(ngModel)]="role"
+                           id="role"
+                           class="form-control" />
+                </div>
+                <div class="col-xs-1">
+                    <span (click)="createUser()"
+                          class="glyphicon glyphicon-plus pull-right"></span>
+                </div>
+                <div class="col-xs-1">
+                    <a [routerLink]="['/admin']">
+                    <span (click)="updateUser()"
+                          class="glyphicon glyphicon-ok pull-right"></span></a>
+                </div>
+            </div>
+        </li>
+        <li *ngFor="let user of users"  class="list-group-item">
+            <div class="row">
+                <div class="col-xs-3">
+                    {{user.email}}
+                </div>
+                <div class="col-xs-3">
+                    {{user.firstName}}
+                </div>
+                <div class="col-xs-3">
+                    {{user.lastName}}
+                </div>
+                <div class="col-xs-1">
+                    {{user.role}}
+                </div>
+                <div class="col-xs-1">
+                    <span (click)="selectUser(user._id)"
+                          class="glyphicon glyphicon-pencil pull-right"></span>
+                </div>
+                <div class="col-xs-1">
+                    <span (click)="deleteUser(user._id)"
+                          class="glyphicon glyphicon-remove red-color pull-right"></span>
+                </div>
+            </div>
+
+        </li>
+    </ul>

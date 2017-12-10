@@ -10,6 +10,7 @@ import {RegisterComponent} from "./components/user/register/register.component";
 import {ProfileComponent} from "./components/user/profile/profile.component";
 import {HomeComponent} from "./components/home/home.component";
 import {AuthGuard} from "./services/auth.service";
+import {AdminComponent} from "./components/admin/admin.component";
 
 
 const APP_ROUTES: Routes = [
@@ -17,7 +18,8 @@ const APP_ROUTES: Routes = [
     {path: '', component : HomeComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
-    {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}
+    {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+    {path: 'admin', component: AdminComponent}
 ];
 
 // Export the routes as module providers

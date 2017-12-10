@@ -14,6 +14,8 @@ import {UserService} from './services/user.service.client';
 import {SharedService} from "./services/shared.service";
 import { HomeComponent } from './components/home/home.component';
 import {AuthGuard} from "./services/auth.service";
+import { AdminComponent } from './components/admin/admin.component';
+import {ReviewServiceClient} from "./services/review.service.client";
 
 @NgModule({
     // Declare components here
@@ -23,7 +25,8 @@ import {AuthGuard} from "./services/auth.service";
         LoginComponent,
         RegisterComponent,
         ProfileComponent,
-        HomeComponent
+        HomeComponent,
+        AdminComponent
     ],
     imports: [
         BrowserModule,
@@ -32,7 +35,7 @@ import {AuthGuard} from "./services/auth.service";
         Routing
     ],
     // Client Side services here
-    providers: [PocServiceClient, UserService, SharedService, AuthGuard],
+    providers: [PocServiceClient, UserService, SharedService, AuthGuard, ReviewServiceClient],
     bootstrap: [AppComponent]
 })
 export class AppModule {
