@@ -4,6 +4,7 @@ import 'rxjs/Rx';
 import {environment} from '../../environments/environment';
 import {Router} from '@angular/router';
 import {SharedService} from './shared.service';
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 
@@ -84,11 +85,15 @@ export class UserService {
     }
 
     findUserById(userId: string) {
+        console.log('Reached here, userId is' + userId);
+        console.log('URL to be hit is ' + this.baseUrl + '/api/v1/user/' + userId);
         return this._http.get(this.baseUrl + '/api/v1/user/' + userId)
             .map(
                 (res: Response) => {
+                    console.log('Reached here');
                     const data = res.json();
-                    return data;
+                    console.log('Data here is ' + JSON.stringify(data));
+                    return JSON.stringify(data);
                 }
             );
     }
@@ -125,5 +130,13 @@ export class UserService {
                 return data;
             }
         );
+    }
+    getAllUsers() {
+        return this._http.get(this.baseUrl + '/api/v1/allUsers').map(
+            (res: Response) => {
+                const data = res.json();
+                return data;
+            }
+        )
     }
 }
