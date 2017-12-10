@@ -28,3 +28,7 @@ userModel.updateUser = function (userId, user) {
 userModel.deleteUser = function (userId) {
 	return userModel.remove({_id: userId});
 };
+
+userModel.findUserByFacebookId = function (facebookId) {
+	return userModel.findOne({'facebook.id': facebookId});
+};
