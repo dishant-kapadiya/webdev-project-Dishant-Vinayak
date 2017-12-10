@@ -22,7 +22,7 @@ export class PocServiceClient {
 
     findMovies(title: string) {
         console.log('baseUrl ' + this.baseUrl);
-        return this._http.post(this.baseUrl + '/search/movies', {query: title})
+        return this._http.post(this.baseUrl + 'api/v1/search/movies', {query: title})
             .map(
                 (res: Response) => {
                     const data = res.json();
@@ -32,7 +32,7 @@ export class PocServiceClient {
     }
 
     findHighestGrossing() {
-        return this._http.get(this.baseUrl + '/search/highestgrossing')
+        return this._http.get(this.baseUrl + '/api/v1/search/highestgrossing')
             .map(
                 (res: Response) => {
                     const data = res.json();
@@ -40,4 +40,25 @@ export class PocServiceClient {
                 }
             );
     }
+
+    findMostPopular() {
+        return this._http.get(this.baseUrl + '/api/v1/search/mostpopular')
+            .map(
+                (res: Response) => {
+                    const data = res.json();
+                    return data;
+                }
+            );
+    }
+
+    findLatestRelease() {
+        return this._http.get(this.baseUrl + '/api/v1/search/latestrelease')
+            .map(
+                (res: Response) => {
+                    const data = res.json();
+                    return data;
+                }
+            );
+    }
+
 }
