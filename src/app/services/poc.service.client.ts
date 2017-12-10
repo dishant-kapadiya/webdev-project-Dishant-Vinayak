@@ -30,4 +30,14 @@ export class PocServiceClient {
                 }
             );
     }
+
+    findHighestGrossing() {
+        return this._http.get(this.baseUrl + '/search/highestgrossing')
+            .map(
+                (res: Response) => {
+                    const data = res.json();
+                    return data;
+                }
+            );
+    }
 }

@@ -23,7 +23,13 @@
     </nav>
 </div>
 
-<div class="input-group input-group-lg top-margin">
+<div class = "top-margin">
+    <div class="page-header ">
+        <h3> Welcome <span> Guest </span> </h3>
+    </div>
+</div>
+
+<div class="input-group input-group-lg">
     <input type="text" [(ngModel)]="title" class="form-control" placeholder="Search movies by title">
     <span class="input-group-btn">
                 <a class="btn btn-warning" type="button" (click)="searchMovies()"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
@@ -51,4 +57,45 @@
 
         </li>
     </ul>
+</div>
+
+
+<div class="btn-group btn-group-justified btn-group-lg top-buffer" role="tablist">
+    <div class="btn-group" role="presentation">
+        <button type="button" class="btn btn-primary" data-target="#popular" aria-controls="popular" role="tab" data-toggle="tab">Most Popular</button>
+    </div>
+    <div class="btn-group" role="presentation">
+        <button type="button" class="btn btn-primary" data-target="#latest" aria-controls="latest"  data-toggle="tab" role="tab">Latest Releases</button>
+    </div>
+    <div class="btn-group" role="presentation">
+        <button type="button" class="btn btn-primary" data-target="#grossing" aria-controls="grossing" role="tab" data-toggle="tab" data-role="presentation">Highest Grossing</button>
+    </div>
+</div>
+
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="popular">
+        <div class="page-header"><h3>Most Popular</h3></div>
+
+        <ul class="list-group" (load)="findHighestGrossing()">
+            <li *ngFor="let movie of movies1" class="list-group-item ">
+
+                <div class="media-left media-middle">
+                    <a href="https://www.themoviedb.org/movie/{{movie.id}}" target="_blank">
+                        <img src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" width="50px" alt="View on TMdB"/>
+                    </a>
+                </div>
+                <div class="media-body">
+                    <span class="pull-right"> {{movie.vote_average}}/10</span>
+                    <h2 class="media-heading">{{movie.title}} ({{movie.release_date | date: "yyyy"}})</h2>
+                    {{movie.overview}}
+
+
+
+                </div>
+
+            </li>
+        </ul>
+    </div>
+
 </div>
