@@ -18,8 +18,8 @@ reviewModel.findReviewById = function (reviewId) {
 };
 
 reviewModel.findReviewsByMovieId = function (movieId) {
-		return reviewModel.find({movieId: movieId});
-	};
+	return reviewModel.find({movieId: movieId});
+};
 
 reviewModel.findReviewsByUserId = function (userId) {
 	return reviewModel.find({userId: userId});
@@ -36,17 +36,3 @@ reviewModel.findReviewByFor = function (userId, movieId) {
 reviewModel.updateReview = function (reviewId, review) {
 	return reviewModel.update({_id: reviewId}, {$set: review});
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-

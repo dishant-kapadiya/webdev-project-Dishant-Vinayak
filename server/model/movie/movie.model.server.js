@@ -18,7 +18,7 @@ movieModel.findMovieById = function findMovieById(movieId) {
 };
 
 movieModel.addRating = function (movieId, rating) {
-	return movieModel.update({'movieId': movieId}, {$push:{ratings:rating.rating}});
+	return movieModel.update({'movieId': movieId}, {$push: {ratings: rating.rating}});
 };
 
 movieModel.addReview = function (movieId, review) {
