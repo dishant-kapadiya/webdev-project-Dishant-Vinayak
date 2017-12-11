@@ -11,6 +11,10 @@ module.exports = function (app) {
 	app.get('/api/v1/user', findUser);
 	app.get('/api/v1/allUsers', allUsers);
 	app.get('/api/v1/user/:userId', findUserById);
+	app.get('/api/v1/user/:userId/follows', findFollowsList);
+	app.get('/api/v1/user/:userId/followers', findFollowersList);
+	app.get('/api/v1/user/:userId/follow/:otherUserId', addFollower);
+	app.get('/api/v1/user/:userId/unfollow/:otherUserId', removeFollower);
 	app.put('/api/v1/user/:userId', updateUser);
 	app.delete('/api/v1/user/:userId', deleteUser);
 
@@ -173,6 +177,51 @@ module.exports = function (app) {
 				res.status(404).json({
 					error: "couldn't fetch all users"
 				})
+			})
+	}
+
+	function findFollowsList(req, res) {
+		userModel.findFollowsList(req.params['userId'])
+			.then(function (users){
+				res.status(200).json(users)
+			})
+			.catch(function (error){
+				res.status(404).json({
+					error: "couldn't fetch follows list"
+				})
+			})
+	}
+
+	function findFollowersList(req, res) {
+		userModel.findFollowersList(req.params['userId'])
+			.then(function (users){
+				res.status(200).json(users)
+			})
+			.catch(function (error){
+				res.status(404).json({
+					error: "couldn't fetch follows list"
+				})
+			})
+	}
+
+	function addFollower(req, res) {
+		console.log("came in");
+		userModel.addFollower(req.params['userId'], req.params['otherUserId'])
+			.then(function (users){
+				res.sendStatus(200)
+			})
+			.catch(function (error){
+				res.sendStatus(404)
+			})
+	}
+
+	function removeFollower(req, res) {
+		userModel.removeFollower(req.params['userId'], req.params['otherUserId'])
+			.then(function (users){
+				res.sendStatus(200)
+			})
+			.catch(function (error){
+				res.sendStatus(404)
 			})
 	}
 

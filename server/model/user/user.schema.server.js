@@ -7,7 +7,7 @@ module.exports = mongoose.Schema({
 	phone: String,
     role: {type: String, default: 'Fan', enum: ['Fan', 'Critic', 'Admin']},
 	genre: {type: [String], default: []},
-	follows: [{type: mongoose.Schema.ObjectId, ref: 'user'}],
-	followers: [{type: mongoose.Schema.ObjectId, ref: 'user'}],
+	follows: [{type: mongoose.Schema.ObjectId, ref: 'user', default: [], unique: true}],
+	followers: [{type: mongoose.Schema.ObjectId, ref: 'user', default: [], unique: true}],
 	dateCreated: {type: Date, default: Date.now()}
 }, {collection: 'user'});

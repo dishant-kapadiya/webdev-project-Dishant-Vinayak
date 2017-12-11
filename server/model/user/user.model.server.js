@@ -36,3 +36,19 @@ userModel.deleteUser = function (userId) {
 userModel.findUserByFacebookId = function (facebookId) {
 	return userModel.findOne({'facebook.id': facebookId});
 };
+
+userModel.findFollowsList = function (userId) {
+	return userModel.find({'follows': userId});
+};
+
+userModel.findFollowersList = function (userId) {
+	return userModel.find({'followers': userId});
+};
+
+userModel.addFollower = function (userId, otherId) {
+	return userModel.update({_id: userId}, {$push: {follows: otherId}});
+};
+
+userModel.removeFollower = function (userId, otherId) {
+	return userModel.update({_id: userId}, {$pull: {follows: otherId}});
+};
