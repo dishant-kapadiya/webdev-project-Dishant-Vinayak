@@ -18,7 +18,7 @@ module.exports = function (app) {
 				res.status(201).json(result);
 			})
 			.catch(function (error) {
-				res.sendStatus(400).json({
+				res.status(400).json({
 					error: 'Error in creating review'
 				});
 			});
