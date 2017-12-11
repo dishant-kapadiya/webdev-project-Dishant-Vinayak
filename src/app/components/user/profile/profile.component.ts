@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
     email: string;
     firstName: string;
     lastName: string;
+    updated: true;
     @ViewChild('f') profileForm: NgForm;
 
     constructor(private userService: UserService, private activatedRoute: ActivatedRoute, private titleService: Title,
@@ -58,6 +59,7 @@ export class ProfileComponent implements OnInit {
                     if (updatedUser) {
                         console.log('Inside update');
                         this.user = updatedUser;
+                        this.updated = true;
                     }
                 },
                 (err) => {

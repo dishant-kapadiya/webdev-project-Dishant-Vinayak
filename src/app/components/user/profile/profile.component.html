@@ -19,6 +19,9 @@
 
 
 <div class="container top-margin">
+  <div class="alert alert-success" *ngIf="updated">
+    <strong>Success!</strong> User updated!
+  </div>
   <form #f="ngForm">
 
     <div class="form-group">
@@ -41,7 +44,7 @@
     </div>
 
     <a class="btn btn-primary btn-block"
-       [routerLink]="['/user/',userId,'website']">Websites</a>
+       [routerLink]="['/home']">Home</a>
     <a class="btn btn-danger btn-block bottom-margin"
        (click)="logout()">Logout</a>
   </form>
@@ -51,7 +54,7 @@
 <nav class="navbar navbar-fixed-bottom navbar-custom">
   <div class="container-fluid">
     <p class="navbar-text pull-right">
-      <a [routerLink]="['/user/',userId]" class="navbar-link navbar-text pull-right c1-color-black c1-text-bold cl-icon-padding">
+      <a [routerLink]="['/profile']" class="navbar-link navbar-text pull-right c1-color-black c1-text-bold cl-icon-padding">
         <span class="glyphicon glyphicon-user glyph-color"></span>
       </a>
     </p>
