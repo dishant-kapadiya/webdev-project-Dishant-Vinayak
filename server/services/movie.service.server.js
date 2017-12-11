@@ -13,7 +13,7 @@ module.exports = function (app) {
 		movieModel.findMovieByObjectId(movie['movieId'])
 			.then(function(result){
 				if (result) {
-					res.status(400).json({
+					res.status(200).json({
 						error: 'Movie already exists'
 					});
 				} else {
