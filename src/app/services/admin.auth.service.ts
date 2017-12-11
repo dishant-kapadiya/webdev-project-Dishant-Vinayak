@@ -8,6 +8,6 @@ export class AdminAuthGuard implements CanActivate {
     constructor(private userService: UserService, private router: Router, private sharedService: SharedService) {}
 
     canActivate() {
-        return this.userService.loggedIn('admin');
+        return this.userService.loggedIn(['admin']);
     }
 }

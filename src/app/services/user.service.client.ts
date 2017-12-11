@@ -73,13 +73,13 @@ export class UserService {
             );
     }
 
-    loggedIn(userLevel: String) {
+    loggedIn(userLevels: [String]) {
         this.options.withCredentials = true;
         return this._http.post(this.baseUrl + '/api/v1/loggedIn', '', this.options)
             .map(
                 (res: Response) => {
                     const user = res.json();
-                    if (user !== 0 && userLevel === user['role']) {
+                    if (user !== 0 && userLevels.lastIndexOf(user['role']) > -1) {
                         this.sharedService.user = user; // setting user so as to share with all components
                         return true;
                     } else {
@@ -172,6 +172,7 @@ export class UserService {
                 }
             );
     }
+
     getFollowers(loggedInId: string) {
         return this._http.get(this.baseUrl + '/api/v1/user/' + loggedInId + '/followers')
             .map(
@@ -180,6 +181,7 @@ export class UserService {
                 }
             );
     }
+
     getFollowees(loggedInId: string) {
         return this._http.get(this.baseUrl + '/api/v1/user/' + loggedInId + '/follows')
             .map(

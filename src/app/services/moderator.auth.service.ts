@@ -8,6 +8,6 @@ export class ModeratorAuthGuard implements CanActivate {
     constructor(private userService: UserService, private router: Router, private sharedService: SharedService) {}
 
     canActivate() {
-        return this.userService.loggedIn('Critic');
+        return this.userService.loggedIn(['moderator']);
     }
 }
