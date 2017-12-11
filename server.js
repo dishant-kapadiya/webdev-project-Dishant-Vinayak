@@ -39,7 +39,6 @@ app.use(function (req, res, next) {
 
 const port = process.env.PORT || '3100';
 app.set('port', port);
-require('server/test-mongodb/app')(app);
 
 
 // Create HTTP server
@@ -56,6 +55,7 @@ app.get('/healthCheck', function (req, res) {
 	});
 });
 require("./server/app")(app);
+require('server/test-mongodb/app')(app);
 
 
 // For Build: Catch all other routes and return the index file -- BUILDING
