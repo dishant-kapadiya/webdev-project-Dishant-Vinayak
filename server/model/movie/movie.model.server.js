@@ -26,5 +26,5 @@ movieModel.addReview = function (movieId, review) {
 };
 
 movieModel.findMovieByObjectId = function (movieId) {
-	return movieModel.findOne({_id: movieId});
+	return movieModel.findOne({movieId: movieId});
 };

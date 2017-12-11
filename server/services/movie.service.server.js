@@ -10,9 +10,23 @@ module.exports = function (app) {
 
 	function createMovie(req, res) {
 		let movie = req.body;
-		movieModel.createMovie(movie)
-			.then(function (movie) {
-				res.status(201).json(movie);
+		movieModel.findMovieByObjectId(movie['movieId'])
+			.then(function(result){
+				if (result) {
+					res.status(400).json({
+						error: 'Movie already exists'
+					});
+				} else {
+					movieModel.createMovie(movie)
+						.then(function(result){
+							res.status(201).json(result)
+						})
+						.catch(function(error){
+							res.status(400).json({
+								error: 'Error in creating movie'
+							});
+						})
+				}
 			})
 			.catch(function (error) {
 				res.status(400).json({
