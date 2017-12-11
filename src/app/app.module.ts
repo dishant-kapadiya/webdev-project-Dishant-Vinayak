@@ -22,6 +22,7 @@ import {IndexComponent} from './components/index/index.component';
 import {UserprofileComponent} from './components/userprofile/userprofile.component';
 import {AdminAuthGuard} from './services/admin.auth.service';
 import {ModeratorAuthGuard} from './services/moderator.auth.service';
+import { ModeratorComponent } from './components/moderator/moderator.component';
 
 @NgModule({
     // Declare components here
@@ -35,7 +36,8 @@ import {ModeratorAuthGuard} from './services/moderator.auth.service';
         AdminComponent,
         MovieComponent,
         IndexComponent,
-        UserprofileComponent
+        UserprofileComponent,
+        ModeratorComponent
     ],
     imports: [
         BrowserModule,
