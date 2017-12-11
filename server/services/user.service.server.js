@@ -11,6 +11,7 @@ module.exports = function (app) {
 	app.get('/api/v1/user', findUser);
 	app.get('/api/v1/allUsers', allUsers);
 	app.get('/api/v1/user/:userId', findUserById);
+	app.get('/api/v1/userEmails', getUserEmail);
 	app.get('/api/v1/user/:userId/follows', findFollowsList);
 	app.get('/api/v1/user/:userId/followers', findFollowersList);
 	app.get('/api/v1/user/:userId/follow/:otherUserId', addFollower);
@@ -31,9 +32,9 @@ module.exports = function (app) {
 	}));
 
 	let facebookConfig = {
-		clientID: process.env.FACEBOOK_CLIENT_ID,
-		clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-		callbackURL: process.env.FACEBOOK_CALLBACK_URL
+		clientID: process.env.FACEBOOK_CLIENT_ID || "asdflasdfasdfasdfasdf",
+		clientSecret: process.env.FACEBOOK_CLIENT_SECRET || "asdflasdfasdfasdfasdf",
+		callbackURL: process.env.FACEBOOK_CALLBACK_URL || "asdflasdfasdfasdfasdf"
 	};
 
 	passport.serializeUser((user, done) => {
@@ -278,6 +279,22 @@ module.exports = function (app) {
 					"error": "Not Found"
 				});
 			});
+	}
+
+	function getUserEmail(req, res) {
+		let userIds = req.body;
+
+		Promise.all(userIds.map(function(x) {
+			userModel.findUserById(x)
+				.then(function(user) {
+					return user['email']
+				})
+				.catch(function(error){
+					return "Invalid Email"
+				})
+		}));
+
+
 	}
 
 	function updateUser(req, res) {
