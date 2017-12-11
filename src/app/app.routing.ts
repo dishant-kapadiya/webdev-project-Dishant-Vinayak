@@ -11,15 +11,19 @@ import {ProfileComponent} from "./components/user/profile/profile.component";
 import {HomeComponent} from "./components/home/home.component";
 import {AuthGuard} from "./services/auth.service";
 import {AdminComponent} from "./components/admin/admin.component";
+import {MovieComponent} from "./components/movie/movie.component";
+import {IndexComponent} from "./components/index/index.component";
 
 
 const APP_ROUTES: Routes = [
     { path : 'poc', component: POCComponent},
-    {path: '', component : HomeComponent},
+    {path: '', component : IndexComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-    {path: 'admin', component: AdminComponent}
+    {path: 'admin', component: AdminComponent},
+    {path: 'movie/:movieId', component: MovieComponent},
+    {path: 'home', component: HomeComponent}
 ];
 
 // Export the routes as module providers

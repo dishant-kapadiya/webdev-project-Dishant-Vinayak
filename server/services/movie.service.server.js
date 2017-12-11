@@ -4,7 +4,7 @@ let movieModel = require('../model/movie/movie.model.server');
 app.post('/api/v1/movie', createMovie);
 app.get('/api/v1/movies/:movieId', findMovieById);
 // Might not be needed
-// app.get('/api/v1/movieByOId/:movieId', findMovieByObjectId);
+app.get('/api/v1/movieByOId/:movieId', findMovieByObjectId);
 app.get('/api/v1/movie', findAllMovies);
 
 

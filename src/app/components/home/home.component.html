@@ -57,7 +57,7 @@
             </div>
             <div class="media-body">
                 <span class="pull-right"> {{movie.vote_average}}/10</span>
-                <h2 class="media-heading">{{movie.title}} ({{movie.release_date | date: "yyyy"}})</h2>
+                <a [routerLink]="['/movie/', movie.id]"><h2 class="media-heading">{{movie.title}} ({{movie.release_date | date: "yyyy"}})</h2></a>
                 {{movie.overview}}
 
 

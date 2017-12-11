@@ -2,7 +2,7 @@ module.exports = function (app) {
 
 	let mediaModel = require('../model/media/media.model.server');
 
-	app.post('/api/v1/owner/:ownerId/media', createMedia);
+	app.post('/api/v1/owner/:ownerId/media', createMovie);
 	app.get('/api/v1/owner/:ownerId/media', findMediaByOwner);
 	app.get('/api/v1/media/:mediaId', findMediaById);
 	app.put('/api/v1/media/:mediaId', updateMedia);
@@ -15,7 +15,7 @@ module.exports = function (app) {
 	// app.delete('/api/website/:websiteId', deleteWebsite);
 	
 
-	function createMedia(req, res) {
+	function createMovie(req, res) {
 		mediaModel.createMedia(req.body)
 			.then(function(owner){
 				res.send(owner);

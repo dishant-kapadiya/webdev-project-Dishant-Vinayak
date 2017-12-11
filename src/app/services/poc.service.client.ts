@@ -11,7 +11,7 @@ export class PocServiceClient {
 
    baseUrl = environment.baseUrl;
      API_KEY = 'd3d04ee78153a24eeb1f7a0e73f56a9c';
-     TMDB_URL = 'https://api.themoviedb.org/3/search/movie';
+     TMDB_URL = 'https://api.themoviedb.org/3';
 
   // findMovies(title: string) {
   //
@@ -60,5 +60,18 @@ export class PocServiceClient {
                 }
             );
     }
+
+    findMovieById(movieId: string) {
+        return this._http.get(this.TMDB_URL + '/movie/' + movieId + '?api_key=' + this.API_KEY + '&append_to_response=credits,reviews')
+            .map(
+                (res: Response) => {
+                    const data = res.json();
+                    // console.log('Data in POC is ' + JSON.stringify(data));
+                    return data;
+                }
+            );
+    }
+
+    createMovie(movie: any) {}
 
 }

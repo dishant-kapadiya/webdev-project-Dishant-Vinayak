@@ -192,3 +192,19 @@ h2 {
   color: red;
 }
 
+body {
+    background-image: url("gray-background.jpg");
+}
+
+.center-image {
+  display: block;
+  margin: 0 auto;
+}
+
+.margined {
+  margin-left: 1cm;
+}
+
+.aligned {
+  alignment: center;
+}
