@@ -1,4 +1,38 @@
-<div class="container">
+<div class="container-fluid custom-center-container">
+
+    <nav class="navbar navbar-fixed-top navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand pull-left" [routerLink]="['/home']">
+                <span
+                        class="glyphicon glyphicon-home pull-left glyph-color">
+
+                </span>
+            </a>
+            <a class="navbar-brand pull-right" *ngIf="!loggedIn" [routerLink]="['/register']">
+                <span
+                        class="glyphicon glyphicon-user pull-right glyph-color"> Register</span>
+
+            </a>
+            <a class="navbar-brand pull-right" *ngIf="!loggedIn" [routerLink]="['/login']">
+                <span
+                        class="glyphicon glyphicon-log-in pull-right glyph-color"> Login</span>
+
+            </a>
+            <a class="navbar-brand pull-right" *ngIf="loggedIn" [routerLink]="['/profile']">
+                <span
+                        class="glyphicon glyphicon-user pull-right glyph-color"> Profile</span>
+
+            </a>
+            <a class="navbar-brand pull-right" *ngIf="loggedIn" (click)="logout()" [routerLink]="['/home']">
+                <span
+                        class="glyphicon glyphicon-log-out pull-right glyph-color" (click)="logout()"> Logout</span>
+
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="container top-margin">
     <div class="jumbotron row">
         <div class="col-sm-4" *ngIf="movieByTMDBId['poster_path']">
             <img src="https://image.tmdb.org/t/p/w300/{{movieByTMDBId['poster_path']}}">
@@ -68,13 +102,11 @@
                 <div class="panel-heading">Artists</div>
                 <div class="panel-body row">
                     <div class="col-sm-3" *ngFor="let cast of movieByTMDBId['credits']['cast']; let i=index">
-                        <div *ngIf="i<8">
-                            <a href="#!/artist/{{cast['id']}}">
+                        <div *ngIf="i<4">
                                 <img src="https://image.tmdb.org/t/p/w92{{cast['profile_path']}}"
                                      alt="{{cast['name']}}">
-                            </a>
                             <div class="caption">
-                                <h5><a href="#!/artist/{{cast['id']}}">{{cast['name']}}</a></h5>
+                                <h5 class="artist-name">{{cast['name']}}</h5>
                                 <p>as {{cast['character']}}</p>
                             </div>
                         </div>

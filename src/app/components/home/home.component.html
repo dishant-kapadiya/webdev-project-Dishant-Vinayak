@@ -45,7 +45,7 @@
             </span>
 </div>
 
-<div class="container" *ngIf="searched">
+<div *ngIf="searched">
     <h5>Found the following results for <i>{{title}}</i></h5>
     <ul class="list-group">
         <li *ngFor="let movie of movies" class="list-group-item ">
@@ -131,9 +131,6 @@
                     <span class="pull-right"> {{movie.vote_average}}/10</span>
                     <a (click)="createMovie(movie.id, movie.title)"><h2 class="media-heading">{{movie.title}} ({{movie.release_date | date: "yyyy"}})</h2></a>
                     {{movie.overview}}
-
-
-
                 </div>
 
             </li>

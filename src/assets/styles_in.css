@@ -205,7 +205,8 @@ body {
 }
 
 .aligned {
-    alignment: center;
+    margin-left: 50%;
+    margin-right: 50%;
 }
 
 .namedH {
@@ -215,4 +216,17 @@ body {
 hr {
     size: 10cm;
     color: dimgray;
+}
+
+.artist-name {
+    color: blue;
+    text-decoration: underline;
+}
+
+.with-left-margin {
+    margin-left: 1px;
+}
+
+.with-right-margin {
+    margin-right: 10px;
 }
