@@ -7,5 +7,7 @@ module.exports = function (app) {
 	require("./services/search.service.server")(app);
 	require("./services/user.service.server")(app);
 	require("./services/media.service.server")(app);
+	require("./services/movie.service.server")(app);
+	require("./services/review.service.server")(app);
 };
 
