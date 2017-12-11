@@ -1,0 +1,40 @@
+<h1>
+  Welcome to Moderator Page
+</h1>
+
+
+<div class="container">
+  <div class="col-md-12">
+    <h1>Manage Reviews</h1>
+
+    <ul class="list-group">
+      <li class="list-group-item list-header">
+        <div class="row">
+          <div class="col-xs-6">
+            <label for="email">Owner Id</label>
+          </div>
+          <div class="col-xs-4">
+            <label for="firstname">Review</label>
+          </div>
+          <div class="col-xs-2">
+
+          </div>
+        </div>
+      <li *ngFor="let review of allReviews"  class="list-group-item">
+        <div class="row">
+          <div class="col-xs-6">
+            <a [routerLink]="['/userprofile',review.ownerId]">{{review.ownerId}}</a>
+          </div>
+          <div class="col-xs-4">
+            {{review.review}}
+          </div>
+          <div class="col-xs-2">
+                    <span (click)="deleteReview(review._id)"
+                          class="glyphicon glyphicon-remove red-color pull-right"></span>
+          </div>
+        </div>
+
+      </li>
+    </ul>
+  </div>
+</div>

@@ -20,6 +20,7 @@ import { MovieComponent } from './components/movie/movie.component';
 import {MovieServiceClient} from "./services/movie.service.client";
 import { IndexComponent } from './components/index/index.component';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
+import { ModeratorComponent } from './components/moderator/moderator.component';
 
 @NgModule({
     // Declare components here
@@ -33,7 +34,8 @@ import { UserprofileComponent } from './components/userprofile/userprofile.compo
         AdminComponent,
         MovieComponent,
         IndexComponent,
-        UserprofileComponent
+        UserprofileComponent,
+        ModeratorComponent
     ],
     imports: [
         BrowserModule,

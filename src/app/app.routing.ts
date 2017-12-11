@@ -14,6 +14,7 @@ import {AdminComponent} from "./components/admin/admin.component";
 import {MovieComponent} from "./components/movie/movie.component";
 import {IndexComponent} from "./components/index/index.component";
 import {UserprofileComponent} from "./components/userprofile/userprofile.component";
+import {ModeratorComponent} from "./components/moderator/moderator.component";
 
 
 const APP_ROUTES: Routes = [
@@ -25,7 +26,8 @@ const APP_ROUTES: Routes = [
     {path: 'admin', component: AdminComponent},
     {path: 'movie/:movieId', component: MovieComponent},
     {path: 'home', component: HomeComponent},
-    {path: 'userprofile/:userId', component: UserprofileComponent}
+    {path: 'userprofile/:userId', component: UserprofileComponent},
+    {path: 'moderator', component: ModeratorComponent}
 ];
 
 // Export the routes as module providers
