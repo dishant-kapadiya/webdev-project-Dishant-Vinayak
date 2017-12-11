@@ -22,7 +22,7 @@ reviewModel.findReviewsByMovieId = function (movieId) {
 };
 
 reviewModel.findReviewsByUserId = function (userId) {
-	return reviewModel.find({userId: userId});
+	return reviewModel.find({ownerId: userId});
 };
 
 reviewModel.deleteReview = function (reviewId) {
@@ -30,7 +30,7 @@ reviewModel.deleteReview = function (reviewId) {
 };
 
 reviewModel.findReviewByFor = function (userId, movieId) {
-	return reviewModel.findOne({userId: userId, movieId: movieId});
+	return reviewModel.findOne({ownerId: userId, movieId: movieId});
 };
 
 reviewModel.updateReview = function (reviewId, review) {
