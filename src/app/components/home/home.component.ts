@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
             .subscribe((data) => {
                 if (data) {
                     this.loggedIn = true;
-                    this.email = this.sharedService.user['email'];
+                    this.email = this.sharedService.user['firstName'] || this.sharedService.user['email'];
                 }
             });
         console.log('User is ' + JSON.stringify(this.sharedService.user));

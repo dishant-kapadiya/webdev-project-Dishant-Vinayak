@@ -24,16 +24,16 @@ module.exports = function (app) {
 	app.post('/api/v1/logout', logout);
 	app.post('/api/v1/register', register);
 	app.post('/api/v1/loggedIn', loggedIn);
-	app.get('/api/v1/facebook/login', passport.authenticate('facebook', {scope: 'email'}));
+	app.get('/api/v1/facebook/login', passport.authenticate('facebook', {scope: ['email']}));
 	app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-		successRedirect: '/profile',
+		successRedirect: '/home',
 		failureRedirect: '/login'
 	}));
 
 	let facebookConfig = {
-		clientID: "lasjdlfkjalskndfbsldkfn",
-		clientSecret: "kajsdfljaslkdfjalsjdflk",
-		callbackURL: "lkajsdlfjalskndfkjsjdfbkajsndfh"
+		clientID: process.env.FACEBOOK_CLIENT_ID || "lasjdlfkjalskndfbsldkfn",
+		clientSecret: process.env.FACEBOOK_CLIENT_SECRET || "kajsdfljaslkdfjalsjdflk",
+		callbackURL: process.env.FACEBOOK_CALLBACK_URL || "lkajsdlfjalskndfkjsjdfbkajsndfh"
 	};
 
 	passport.serializeUser((user, done) => {

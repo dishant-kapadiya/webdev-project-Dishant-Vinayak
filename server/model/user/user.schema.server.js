@@ -9,5 +9,9 @@ module.exports = mongoose.Schema({
 	genre: {type: [String], default: []},
 	follows: [{type: mongoose.Schema.ObjectId, ref: 'user', default: [], unique: true}],
 	followers: [{type: mongoose.Schema.ObjectId, ref: 'user', default: [], unique: true}],
+	facebook: {
+		id:    String,
+		token: String
+	},
 	dateCreated: {type: Date, default: Date.now()}
 }, {collection: 'user'});
