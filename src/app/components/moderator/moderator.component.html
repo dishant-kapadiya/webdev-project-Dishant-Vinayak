@@ -1,3 +1,22 @@
+<div class="container-fluid custom-center-container">
+
+  <nav class="navbar navbar-fixed-top navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand pull-left" [routerLink]="['/home']">
+                <span
+                        class="glyphicon glyphicon-home pull-left glyph-color">
+
+                </span>
+      </a>
+      <a class="navbar-brand pull-right" (click)="logout()" [routerLink]="['/home']">
+                <span
+                        class="glyphicon glyphicon-log-out pull-right glyph-color" (click)="logout()"> Logout</span>
+
+      </a>
+    </div>
+  </nav>
+</div>
+
 <h1>
   Welcome to Moderator Page
 </h1>

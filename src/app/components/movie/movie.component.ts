@@ -23,6 +23,8 @@ export class MovieComponent implements OnInit {
     review: String;
     movieFromDB = {};
     newreview: string;
+    email: string;
+    loggedIn: boolean;
 
     constructor(private router: Router, private userService: UserService, private reviewService: ReviewServiceClient,
                 private pocService: PocServiceClient, private movieService: MovieServiceClient,
@@ -37,6 +39,13 @@ export class MovieComponent implements OnInit {
                     console.log(this.movieTMDBId);
                 }
             );
+        this.userService.fetchCurrentUser()
+            .subscribe((data) => {
+                if (data) {
+                    this.loggedIn = true;
+                    this.email = this.sharedService.user['email'];
+                }
+            });
         this.pocService.findMovieById(this.movieTMDBId)
             .subscribe(
                 (movie: any) => {
@@ -161,6 +170,18 @@ export class MovieComponent implements OnInit {
                     {
                         this.canReview = true;
                     }
+                }
+            );
+    }
+
+    logout() {
+        this.userService.logout()
+            .subscribe(
+                (updatedUser) => {
+                    location.reload(true);
+                    this.router.navigate(['/home']);
+                },
+                (err) => {
                 }
             );
     }
