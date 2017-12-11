@@ -11,7 +11,7 @@ module.exports = function (app) {
 	app.get('/api/v1/user', findUser);
 	app.get('/api/v1/allUsers', allUsers);
 	app.get('/api/v1/user/:userId', findUserById);
-	app.get('/api/v1/userEmails', getUserEmail);
+	app.get('/api/v1/userDetails', getUserDetails);
 	app.get('/api/v1/user/:userId/follows', findFollowsList);
 	app.get('/api/v1/user/:userId/followers', findFollowersList);
 	app.get('/api/v1/user/:userId/follow/:otherUserId', addFollower);
@@ -281,19 +281,24 @@ module.exports = function (app) {
 			});
 	}
 
-	function getUserEmail(req, res) {
+	function getUserDetails(req, res) {
 		let userIds = req.body;
 
-		Promise.all(userIds.map(function(x) {
+		let users = Promise.all(userIds.map(function(x) {
 			userModel.findUserById(x)
 				.then(function(user) {
-					return user['email']
+					return {
+						email: user['email'],
+						firstName: user['firstName'],
+						lastName: user['lastName'],
+					}
 				})
 				.catch(function(error){
 					return "Invalid Email"
 				})
 		}));
 
+		console.log(users);
 
 	}
 
