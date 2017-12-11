@@ -81,7 +81,7 @@ export class ReviewServiceClient {
     }
 
     deleteReview(reviewId: string) {
-        return this._http.delete(this.baseUrl + '/api/v1/review/:reviewId' + reviewId)
+        return this._http.delete(this.baseUrl + '/api/v1/review/' + reviewId)
             .map((res: Response) => {
                     const data = res.json();
                     return data;

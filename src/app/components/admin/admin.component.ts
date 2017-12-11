@@ -19,6 +19,7 @@ export class AdminComponent implements OnInit {
     selectedUserId: string;
     selectedUser: any;
     updatedUser: any;
+    allReviews: any;
 
     constructor(private router: Router, private userService: UserService, private reviewService: ReviewServiceClient) {
     }
@@ -30,6 +31,18 @@ export class AdminComponent implements OnInit {
             }, (err) => {
                 console.log(err);
             });
+
+        this.reviewService.findAllReviews()
+            .subscribe(
+                (data: any) => {
+                    this.allReviews = data;
+                    console.log('Reviews here are '+ this.allReviews);
+                    return data;
+                },
+                (error: any) => {
+                    console.log(error);
+                }
+            );
 
     }
     createUser() {
@@ -97,6 +110,31 @@ export class AdminComponent implements OnInit {
                     this.users.splice(user2.index, 1);
                     this.router.navigate(['/admin']);
                     this.firstName = this.lastName = this.email = this.role = '';
+                },
+                (error: any) => {
+                    console.log(error);
+                }
+            );
+    }
+
+    getAllReviews() {
+        this.reviewService.findAllReviews()
+            .subscribe(
+                (data: any) => {
+                    return data;
+                },
+                (error: any) => {
+                    console.log(error);
+                }
+            );
+    }
+
+    deleteReview(reviewId: string) {
+        this.reviewService.deleteReview(reviewId)
+            .subscribe(
+                (data: any) => {
+                    location.reload(true);
+                    return data;
                 },
                 (error: any) => {
                     console.log(error);
