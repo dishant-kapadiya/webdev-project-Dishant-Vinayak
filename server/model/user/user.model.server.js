@@ -38,17 +38,45 @@ userModel.findUserByFacebookId = function (facebookId) {
 };
 
 userModel.findFollowsList = function (userId) {
-	return userModel.find({'follows': userId});
+	return userModel.find({'_id': userId}).select('follows');
 };
 
 userModel.findFollowersList = function (userId) {
-	return userModel.find({'followers': userId});
+	return userModel.find({'_id': userId}).select('followers');
 };
 
 userModel.addFollower = function (userId, otherId) {
-	return userModel.update({_id: userId}, {$push: {follows: otherId}});
+	return new Promise(function (resolve, reject) {
+		userModel.update({_id: userId}, {$push: {follows: otherId}})
+			.then(function (result) {
+				userModel.update({_id: otherId}, {$push: {followers: userId}})
+					.then(function (result) {
+						resolve(result)
+					})
+					.catch(function(error){
+						reject(error)
+					})
+			})
+			.catch(function (error) {
+				reject(error)
+			})
+	});
 };
 
 userModel.removeFollower = function (userId, otherId) {
-	return userModel.update({_id: userId}, {$pull: {follows: otherId}});
+	return new Promise(function (resolve, reject) {
+		userModel.update({_id: userId}, {$pull: {follows: otherId}})
+			.then(function (result) {
+				userModel.update({_id: otherId}, {$pull: {followers: userId}})
+					.then(function (result) {
+						resolve(result)
+					})
+					.catch(function(error){
+						reject(error)
+					})
+			})
+			.catch(function (error) {
+				reject(error)
+			})
+	});
 };

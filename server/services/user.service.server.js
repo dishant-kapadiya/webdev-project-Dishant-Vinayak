@@ -205,7 +205,6 @@ module.exports = function (app) {
 	}
 
 	function addFollower(req, res) {
-		console.log("came in");
 		userModel.addFollower(req.params['userId'], req.params['otherUserId'])
 			.then(function (users){
 				res.sendStatus(200)
