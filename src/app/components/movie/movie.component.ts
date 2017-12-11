@@ -22,6 +22,7 @@ export class MovieComponent implements OnInit {
     canReview: boolean;
     review: String;
     movieFromDB = {};
+    newreview: string;
 
     constructor(private router: Router, private userService: UserService, private reviewService: ReviewServiceClient,
                 private pocService: PocServiceClient, private movieService: MovieServiceClient,
@@ -75,24 +76,26 @@ export class MovieComponent implements OnInit {
             );
     }
 
-    createReview(comment: string) {
+    createReview() {
         if (this.currentUser['role'] !== 'Critic') {
             return;
         }
-        this.reviewService.findReviewsByFor(this.currentUser['_id'], this.movieByTMDBId['movieTMDBId'])
+        this.reviewService.findReviewsByFor(this.currentUser['_id'], this.movieFromDB['_id'])
             .subscribe(
                 (resp: Response) => {
                     if (resp === null) {
                         const review = {
-                            userId: this.currentUser['_id'],
+                            ownerId: this.currentUser['_id'],
                             username: this.currentUser['email'],
                             movieId: this.objectId,
-                            review: comment
+                            review: this.newreview
                         };
+                        console.log('newreview is ' + this.newreview);
                         this.reviewService.createReview(review)
                             .subscribe(
                                 (response: Response) => {
-                                    const data = response.json();
+                                    const data = response;
+                                    location.reload(true);
                                     return data;
                                 },
                                 (error: any) => {
@@ -108,12 +111,12 @@ export class MovieComponent implements OnInit {
                         userId: this.currentUser['_id'],
                         username: this.currentUser['email'],
                         movieId: this.objectId,
-                        review: comment
+                        review: this.newreview
                     };
                     this.reviewService.createReview(review)
                         .subscribe(
                             (resp: Response) => {
-                                const data = resp.json();
+                                const data = resp;
                                 return data;
                             },
                             (error1: any) => {
@@ -132,6 +135,7 @@ export class MovieComponent implements OnInit {
                     const data = res;
                     this.reviewsForMovie = data;
                     console.log('Reviews for movie ' + JSON.stringify(this.reviewsForMovie));
+                    this.canReviewFunction();
                     return data;
                 },
                 (error: any) => {
@@ -144,7 +148,7 @@ export class MovieComponent implements OnInit {
         if (this.currentUser['role'] !== 'Critic') {
             this.canReview = false;
         }
-        this.reviewService.findReviewsByFor(this.currentUser['_id'], this.movieByTMDBId['id'])
+        this.reviewService.findReviewsByFor(this.currentUser['_id'], this.movieFromDB['_id'])
             .subscribe(
                 (resp: Response) => {
                     if (resp === null) {
@@ -155,7 +159,7 @@ export class MovieComponent implements OnInit {
                 },
                 (error: any) => {
                     {
-                        console.log(error);
+                        this.canReview = true;
                     }
                 }
             );

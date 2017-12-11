@@ -88,8 +88,8 @@
                 <div class="panel-heading">Reviews</div>
                 <form>
                 <div *ngIf="currentUser['role'] === 'Critic' && canReview" class="panel-body form">
-                    <textarea class="form-control" rows="3" ngModel #review="ngModel" name="newReview"></textarea>
-                    <a (click)="createReview(newReview)" class="btn btn-success">Post Review</a>
+                    <textarea class="form-control" rows="3" ngModel [(ngModel)]='newreview' name="newReview"></textarea>
+                    <a (click)="createReview()" class="btn btn-success">Post Review</a>
                 </div>
                 </form>
                 <div *ngFor="let review of reviewsForMovie">

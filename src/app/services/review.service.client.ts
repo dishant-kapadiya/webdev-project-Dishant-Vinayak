@@ -61,7 +61,7 @@ export class ReviewServiceClient {
     }
 
     findReviewsByFor(userId: string, movieId: string) {
-        return this._http.get(this.baseUrl + '/api/v1/reviewByFor/' + userId + movieId)
+        return this._http.get(this.baseUrl + '/api/v1/reviewByFor/' + userId + '/' + movieId)
             .map(
                 (res: Response) => {
                     const data = res.json();
