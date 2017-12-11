@@ -73,13 +73,13 @@ export class UserService {
             );
     }
 
-    loggedIn() {
+    loggedIn(userLevel: String) {
         this.options.withCredentials = true;
         return this._http.post(this.baseUrl + '/api/v1/loggedIn', '', this.options)
             .map(
                 (res: Response) => {
                     const user = res.json();
-                    if (user !== 0) {
+                    if (user !== 0 && userLevel === user['role']) {
                         this.sharedService.user = user; // setting user so as to share with all components
                         return true;
                     } else {

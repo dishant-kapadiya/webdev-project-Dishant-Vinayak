@@ -4,10 +4,10 @@ import {UserService} from './user.service.client';
 import {SharedService} from './shared.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AdminAuthGuard implements CanActivate {
     constructor(private userService: UserService, private router: Router, private sharedService: SharedService) {}
 
     canActivate() {
-        return this.userService.loggedIn('Fan');
+        return this.userService.loggedIn('admin');
     }
 }
