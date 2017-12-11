@@ -1345,7 +1345,7 @@ var RegisterComponent = (function () {
                 role: _this.role
             };
             if (_this.password === _this.verifypwd) {
-                _this.userService.register(_this.email, _this.password)
+                _this.userService.register(_this.email, _this.password, _this.role)
                     .subscribe(function (user2) {
                     _this.router.navigate(['/profile']);
                 }, function (error) {
@@ -1949,11 +1949,12 @@ var UserService = (function () {
             var data = res;
         });
     };
-    UserService.prototype.register = function (email, password) {
+    UserService.prototype.register = function (email, password, role) {
         this.options.withCredentials = true;
         var user = {
             email: email,
-            password: password
+            password: password,
+            role: role
         };
         return this._http.post(this.baseUrl + '/api/v1/register', user, this.options)
             .map(function (res) {
