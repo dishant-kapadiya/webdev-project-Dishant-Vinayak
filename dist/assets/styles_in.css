@@ -230,3 +230,7 @@ hr {
 .with-right-margin {
     margin-right: 10px;
 }
+
+.blue-text {
+    color: #3B5998;
+}

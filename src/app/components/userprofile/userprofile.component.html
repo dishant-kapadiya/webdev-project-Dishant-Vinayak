@@ -38,8 +38,34 @@
       <h2 class="namedH">Last Name: {{user['lastName']}}</h2>
     </div>
     <div class="row">
-      <button *ngIf="!alreadyFollows" class="btn btn-primary" (click)="followUser()"> Follow</button>
+      <button *ngIf="!alreadyFollows && !sameUser" class="btn btn-primary" (click)="followUser()"> Follow</button>
       <button *ngIf="alreadyFollows" class="btn btn-danger" (click)="unfollowUser()"> Unfollow</button>
     </div>
   </div>
 </div>
+
+<div class="container top-margin">
+  <div class="col-md-4">
+    <h3 class="blue-text">This user follows: {{followees.length}} users</h3>
+    <ul class="list-group" *ngIf="followees">
+      <li class="list-group-item" *ngFor = "let user of followees"><a [routerLink]="['/userprofile', user['_id']]" target="_blank">{{user['firstName'] || user['email']}}</a></li>
+    </ul>
+  </div>
+
+  <div class="col-md-4">
+    <h3 class="blue-text">This user is followed by: {{followers.length}} users</h3>
+    <ul class="list-group" *ngIf="followers">
+      <li class="list-group-item" *ngFor = "let user of followers"><a [routerLink]="['/userprofile', user['_id']]" target="_blank">{{user['firstName'] || user['email']}}</a></li>
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <h3 class="blue-text"> Reviews left by this user</h3>
+    <div class="col-md-12">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor = "let review of userReviews">{{review.review}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+

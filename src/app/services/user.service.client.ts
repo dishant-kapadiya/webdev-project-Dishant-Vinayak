@@ -191,4 +191,14 @@ export class UserService {
                 }
             );
     }
+
+    getFolloweeDetails(array: any) {
+        console.log(array);
+        return this._http.post(this.baseUrl + '/api/v1/userDetails', array)
+            .map(
+                (res: Response) => {
+                    return res.json();
+                }
+            );
+    }
 }

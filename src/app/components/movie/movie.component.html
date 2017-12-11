@@ -121,19 +121,24 @@
                 <form>
                 <div *ngIf="currentUser['role'] === 'Critic' && canReview" class="panel-body form">
                     <textarea class="form-control" rows="3" ngModel [(ngModel)]='newreview' name="newReview"></textarea>
-                    <a (click)="createReview()" class="btn btn-success">Post Review</a>
+                    <a (click)="createReview()" class="btn btn-success top-buffer pull-right">Post Review</a>
                 </div>
                 </form>
                 <div *ngFor="let review of reviewsForMovie">
                     <div class="list-group-item">
                         <h4 class="list-group-item-heading">
                             <a [routerLink]="['/userprofile/', review['ownerId']]">{{review['username']}}</a>
+                            <a *ngIf="currentUser['_id'] == review['ownerId']" (click)="deleteReview(review['_id'])">
+                                <span class="glyphicon glyphicon-remove red-color pull-right"></span>
+                            </a>
                         </h4>
+
                         <p class="list-group-item-text">
                             {{review['review']}}
                         </p>
                     </div>
                 </div>
+                    <p *ngIf="reviewsForMovie.length ==0">Uh oh. No reviews yet.</p>
             </div>
         </div>
     </div>

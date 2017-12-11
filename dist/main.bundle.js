@@ -334,7 +334,7 @@ var AdminComponent = (function () {
         this.updatedUser['email'] = this.email;
         this.userService.updateUser(this.selectedUserId, this.updatedUser)
             .subscribe(function (user2) {
-            _this.router.navigate(['/admin']);
+            location.reload(true);
             _this.firstName = _this.lastName = _this.email = _this.role = '';
         }, function (error) {
             console.log(error);
@@ -345,8 +345,7 @@ var AdminComponent = (function () {
         var _this = this;
         this.userService.deleteUser(userId)
             .subscribe(function (user2) {
-            _this.users.splice(user2.index, 1);
-            _this.router.navigate(['/admin']);
+            location.reload(true);
             _this.firstName = _this.lastName = _this.email = _this.role = '';
         }, function (error) {
             console.log(error);
@@ -816,7 +815,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/movie/movie.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid custom-center-container\">\n\n    <nav class=\"navbar navbar-fixed-top navbar-custom\">\n        <div class=\"container-fluid\">\n            <a class=\"navbar-brand pull-left\" [routerLink]=\"['/home']\">\n                <span\n                        class=\"glyphicon glyphicon-home pull-left glyph-color\">\n\n                </span>\n            </a>\n            <a class=\"navbar-brand pull-right\" *ngIf=\"!loggedIn\" [routerLink]=\"['/register']\">\n                <span\n                        class=\"glyphicon glyphicon-user pull-right glyph-color\"> Register</span>\n\n            </a>\n            <a class=\"navbar-brand pull-right\" *ngIf=\"!loggedIn\" [routerLink]=\"['/login']\">\n                <span\n                        class=\"glyphicon glyphicon-log-in pull-right glyph-color\"> Login</span>\n\n            </a>\n            <a class=\"navbar-brand pull-right\" *ngIf=\"loggedIn\" [routerLink]=\"['/profile']\">\n                <span\n                        class=\"glyphicon glyphicon-user pull-right glyph-color\"> Profile</span>\n\n            </a>\n            <a class=\"navbar-brand pull-right\" *ngIf=\"loggedIn\" (click)=\"logout()\" [routerLink]=\"['/home']\">\n                <span\n                        class=\"glyphicon glyphicon-log-out pull-right glyph-color\" (click)=\"logout()\"> Logout</span>\n\n            </a>\n        </div>\n    </nav>\n</div>\n\n<div class=\"container top-margin\">\n    <div class=\"jumbotron row\">\n        <div class=\"col-sm-4\" *ngIf=\"movieByTMDBId['poster_path']\">\n            <img src=\"https://image.tmdb.org/t/p/w300/{{movieByTMDBId['poster_path']}}\">\n        </div>\n        <div class=\"col-sm-8\">\n            <h1>{{movieByTMDBId['title']}}</h1>\n            <p>{{movieByTMDBId['overview']}}</p>\n            <p>\n                <a *ngIf=\"movieByTMDBId['homepage']\"\n                   href=\"{{movieByTMDBId['homepage']}}\"\n                   class=\"btn btn-default btn-lg\"\n                   target=\"_blank\">\n                    <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i> Visit Website\n                </a>\n            </p>\n        </div>\n    </div>\n\n\n    <div class=\"row\">\n\n        <div class=\"col-xs-12 col-sm-6\">\n            <div class=\"panel panel-primary\">\n                <div class=\"panel-heading\">Details</div>\n                <table class=\"table table-bordered table-responsive table-striped\">\n                        <tr>\n                            <td><i class=\"fa fa-clock-o\" aria-hidden=\"true\"></i> Runtime</td>\n                            <td>{{movieByTMDBId['runtime']}} minutes</td>\n                        </tr>\n                        <tr ng-if=\"model.movie.status == 'Released'\">\n                            <td><i class=\"fa fa-calendar\" aria-hidden=\"true\"></i> Release Date</td>\n                            <td><span>{{movieByTMDBId['release_date']}}</span></td>\n                        </tr>\n                        <tr>\n                            <td><i class=\"fa fa-credit-card\" aria-hidden=\"true\"></i> Budget</td>\n                            <td>{{movieByTMDBId['budget'] | currency: \"USD\":'symbol-narrow':'4.2-2'}}</td>\n                        </tr>\n                        <tr>\n                            <td><i class=\"fa fa-money\" aria-hidden=\"true\"></i> Revenue</td>\n                            <td>{{movieByTMDBId['revenue'] | currency: \"USD\":'symbol-narrow':'4.2-2'}}</td>\n                        </tr>\n                </table>\n            </div>\n\n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\">Genres</div>\n\n                <ul class=\"list-group\">\n                    <li class=\"list-group-item\" *ngFor=\"let genre of movieByTMDBId['genres']\"> {{genre['name']}}\n                    </li>\n                </ul>\n            </div>\n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\">Production Companies</div>\n\n                <ul class=\"list-group\">\n                    <li class=\"list-group-item\" *ngFor=\"let co of movieByTMDBId['production_companies']\">\n                        {{co['name']}}\n                    </li>\n                </ul>\n            </div>\n        </div>\n\n        <div class=\"col-xs-12 col-sm-6\">\n\n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\">Artists</div>\n                <div class=\"panel-body row\">\n                    <div class=\"col-sm-3\" *ngFor=\"let cast of movieByTMDBId['credits']['cast']; let i=index\">\n                        <div *ngIf=\"i<4\">\n                                <img src=\"https://image.tmdb.org/t/p/w92{{cast['profile_path']}}\"\n                                     alt=\"{{cast['name']}}\">\n                            <div class=\"caption\">\n                                <h5 class=\"artist-name\">{{cast['name']}}</h5>\n                                <p>as {{cast['character']}}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n\n            <div class=\"panel panel-default\">\n\n                <div class=\"panel-heading\">Reviews</div>\n                <form>\n                <div *ngIf=\"currentUser['role'] === 'Critic' && canReview\" class=\"panel-body form\">\n                    <textarea class=\"form-control\" rows=\"3\" ngModel [(ngModel)]='newreview' name=\"newReview\"></textarea>\n                    <a (click)=\"createReview()\" class=\"btn btn-success\">Post Review</a>\n                </div>\n                </form>\n                <div *ngFor=\"let review of reviewsForMovie\">\n                    <div class=\"list-group-item\">\n                        <h4 class=\"list-group-item-heading\">\n                            <a [routerLink]=\"['/userprofile/', review['ownerId']]\">{{review['username']}}</a>\n                        </h4>\n                        <p class=\"list-group-item-text\">\n                            {{review['review']}}\n                        </p>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>"
+module.exports = "<div class=\"container-fluid custom-center-container\">\n\n    <nav class=\"navbar navbar-fixed-top navbar-custom\">\n        <div class=\"container-fluid\">\n            <a class=\"navbar-brand pull-left\" [routerLink]=\"['/home']\">\n                <span\n                        class=\"glyphicon glyphicon-home pull-left glyph-color\">\n\n                </span>\n            </a>\n            <a class=\"navbar-brand pull-right\" *ngIf=\"!loggedIn\" [routerLink]=\"['/register']\">\n                <span\n                        class=\"glyphicon glyphicon-user pull-right glyph-color\"> Register</span>\n\n            </a>\n            <a class=\"navbar-brand pull-right\" *ngIf=\"!loggedIn\" [routerLink]=\"['/login']\">\n                <span\n                        class=\"glyphicon glyphicon-log-in pull-right glyph-color\"> Login</span>\n\n            </a>\n            <a class=\"navbar-brand pull-right\" *ngIf=\"loggedIn\" [routerLink]=\"['/profile']\">\n                <span\n                        class=\"glyphicon glyphicon-user pull-right glyph-color\"> Profile</span>\n\n            </a>\n            <a class=\"navbar-brand pull-right\" *ngIf=\"loggedIn\" (click)=\"logout()\" [routerLink]=\"['/home']\">\n                <span\n                        class=\"glyphicon glyphicon-log-out pull-right glyph-color\" (click)=\"logout()\"> Logout</span>\n\n            </a>\n        </div>\n    </nav>\n</div>\n\n<div class=\"container top-margin\">\n    <div class=\"jumbotron row\">\n        <div class=\"col-sm-4\" *ngIf=\"movieByTMDBId['poster_path']\">\n            <img src=\"https://image.tmdb.org/t/p/w300/{{movieByTMDBId['poster_path']}}\">\n        </div>\n        <div class=\"col-sm-8\">\n            <h1>{{movieByTMDBId['title']}}</h1>\n            <p>{{movieByTMDBId['overview']}}</p>\n            <p>\n                <a *ngIf=\"movieByTMDBId['homepage']\"\n                   href=\"{{movieByTMDBId['homepage']}}\"\n                   class=\"btn btn-default btn-lg\"\n                   target=\"_blank\">\n                    <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i> Visit Website\n                </a>\n            </p>\n        </div>\n    </div>\n\n\n    <div class=\"row\">\n\n        <div class=\"col-xs-12 col-sm-6\">\n            <div class=\"panel panel-primary\">\n                <div class=\"panel-heading\">Details</div>\n                <table class=\"table table-bordered table-responsive table-striped\">\n                        <tr>\n                            <td><i class=\"fa fa-clock-o\" aria-hidden=\"true\"></i> Runtime</td>\n                            <td>{{movieByTMDBId['runtime']}} minutes</td>\n                        </tr>\n                        <tr ng-if=\"model.movie.status == 'Released'\">\n                            <td><i class=\"fa fa-calendar\" aria-hidden=\"true\"></i> Release Date</td>\n                            <td><span>{{movieByTMDBId['release_date']}}</span></td>\n                        </tr>\n                        <tr>\n                            <td><i class=\"fa fa-credit-card\" aria-hidden=\"true\"></i> Budget</td>\n                            <td>{{movieByTMDBId['budget'] | currency: \"USD\":'symbol-narrow':'4.2-2'}}</td>\n                        </tr>\n                        <tr>\n                            <td><i class=\"fa fa-money\" aria-hidden=\"true\"></i> Revenue</td>\n                            <td>{{movieByTMDBId['revenue'] | currency: \"USD\":'symbol-narrow':'4.2-2'}}</td>\n                        </tr>\n                </table>\n            </div>\n\n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\">Genres</div>\n\n                <ul class=\"list-group\">\n                    <li class=\"list-group-item\" *ngFor=\"let genre of movieByTMDBId['genres']\"> {{genre['name']}}\n                    </li>\n                </ul>\n            </div>\n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\">Production Companies</div>\n\n                <ul class=\"list-group\">\n                    <li class=\"list-group-item\" *ngFor=\"let co of movieByTMDBId['production_companies']\">\n                        {{co['name']}}\n                    </li>\n                </ul>\n            </div>\n        </div>\n\n        <div class=\"col-xs-12 col-sm-6\">\n\n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\">Artists</div>\n                <div class=\"panel-body row\">\n                    <div class=\"col-sm-3\" *ngFor=\"let cast of movieByTMDBId['credits']['cast']; let i=index\">\n                        <div *ngIf=\"i<4\">\n                                <img src=\"https://image.tmdb.org/t/p/w92{{cast['profile_path']}}\"\n                                     alt=\"{{cast['name']}}\">\n                            <div class=\"caption\">\n                                <h5 class=\"artist-name\">{{cast['name']}}</h5>\n                                <p>as {{cast['character']}}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n\n            <div class=\"panel panel-default\">\n\n                <div class=\"panel-heading\">Reviews</div>\n                <form>\n                <div *ngIf=\"currentUser['role'] === 'Critic' && canReview\" class=\"panel-body form\">\n                    <textarea class=\"form-control\" rows=\"3\" ngModel [(ngModel)]='newreview' name=\"newReview\"></textarea>\n                    <a (click)=\"createReview()\" class=\"btn btn-success top-buffer pull-right\">Post Review</a>\n                </div>\n                </form>\n                <div *ngFor=\"let review of reviewsForMovie\">\n                    <div class=\"list-group-item\">\n                        <h4 class=\"list-group-item-heading\">\n                            <a [routerLink]=\"['/userprofile/', review['ownerId']]\">{{review['username']}}</a>\n                            <a *ngIf=\"currentUser['_id'] == review['ownerId']\" (click)=\"deleteReview(review['_id'])\">\n                                <span class=\"glyphicon glyphicon-remove red-color pull-right\"></span>\n                            </a>\n                        </h4>\n\n                        <p class=\"list-group-item-text\">\n                            {{review['review']}}\n                        </p>\n                    </div>\n                </div>\n                    <p *ngIf=\"reviewsForMovie.length ==0\">Uh oh. No reviews yet.</p>\n            </div>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -991,6 +990,14 @@ var MovieComponent = (function () {
         }, function (err) {
         });
     };
+    MovieComponent.prototype.deleteReview = function (id) {
+        this.reviewService.deleteReview(id)
+            .subscribe(function (data) {
+            location.reload(true);
+            console.log('Deleted review');
+        }, function (Err) {
+        });
+    };
     return MovieComponent;
 }());
 MovieComponent = __decorate([
@@ -1106,7 +1113,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/user/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    <div *ngIf=\"errorFlag\"\n         class=\"alert alert-danger\">\n        {{errorMsg}}\n    </div>\n\n    <h1>Login</h1>\n    <form #f=\"ngForm\">\n        <input placeholder=\"email\"\n               name=\"email\"\n               type=\"text\"\n               class=\"form-control bottom-buffer\"\n               ngModel required autofocus\n               #email=\"ngModel\"/>\n        <span class=\"help-block\" *ngIf=\"!email.valid && email.touched\">Please enter a username! </span>\n        <input placeholder=\"password\"\n               type=\"password\"\n               name=\"password\"\n               ngModel\n               class=\"form-control bottom-buffer\"\n               #password=\"ngModel\" required/>\n        <span class=\"help-block\" *ngIf=\"!password.valid && password.touched\">Please enter a password! </span>\n        <button class=\"btn btn-primary btn-block bottom-buffer\" (click)=\"login()\" [disabled]=\"!f.valid\">Login</button>\n        <button class=\"btn btn-success btn-block bottom-buffer\" [routerLink]=\"['/register']\">Register</button>\n        <hr>\n        <a href=\"/api/v1/facebook/login\" class=\"btn btn-primary btn-block\">\n            <span class=\"fa fa-facebook\"></span>\n            Facebook\n        </a>\n    </form>\n</div>"
+module.exports = "<div class=\"container\">\n    <div *ngIf=\"errorFlag\"\n         class=\"alert alert-danger\">\n        {{errorMsg}}\n    </div>\n\n    <h1>Login</h1>\n    <form #f=\"ngForm\">\n        <input placeholder=\"username\"\n               name=\"email\"\n               type=\"text\"\n               class=\"form-control bottom-buffer\"\n               ngModel required autofocus\n               #email=\"ngModel\"/>\n        <span class=\"help-block\" *ngIf=\"!email.valid && email.touched\">Please enter a username! </span>\n        <input placeholder=\"password\"\n               type=\"password\"\n               name=\"password\"\n               ngModel\n               class=\"form-control bottom-buffer\"\n               #password=\"ngModel\" required/>\n        <span class=\"help-block\" *ngIf=\"!password.valid && password.touched\">Please enter a password! </span>\n        <button class=\"btn btn-primary btn-block bottom-buffer\" (click)=\"login()\" [disabled]=\"!f.valid\">Login</button>\n        <button class=\"btn btn-success btn-block bottom-buffer\" [routerLink]=\"['/register']\">Register</button>\n        <hr>\n        <a href=\"/api/v1/facebook/login\" class=\"btn btn-primary btn-block\">\n            <span class=\"fa fa-facebook\"></span>\n            Facebook\n        </a>\n    </form>\n</div>"
 
 /***/ }),
 
@@ -1330,7 +1337,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/user/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div *ngIf=\"userExistsFlag\"\n       class=\"alert alert-danger\">\n    {{userExistsMessage}}\n  </div>\n  <div *ngIf=\"errorFlag\"\n       class=\"alert alert-danger\">\n    {{errorMessage}}\n  </div>\n  <h1>User Registration</h1>\n  <form (ngSubmit) = \"register()\" #f=\"ngForm\">\n    <input placeholder=\"Email\"\n           name=\"email\"\n           type=\"text\"\n           class=\"form-control bottom-buffer\"\n           ngModel\n           required\n           #email=\"ngModel\"/>\n    <span class=\"help-block\" *ngIf=\"!email.valid && email.touched\">\n      Username cannot be blank!\n    </span>\n    <input placeholder=\"password\"\n           name=\"password\"\n           type=\"password\"\n           class=\"form-control bottom-buffer\"\n           ngModel\n           required\n           #password=\"ngModel\"\n    />\n    <span class=\"help-block\" *ngIf=\"!password.valid && password.touched\">\n      Please enter a valid password!\n   </span>\n    <input placeholder=\"Verify Password\"\n           type=\"password\"\n           name=\"verifypwd\"\n           ngModel\n           required\n           #verifypwd=\"ngModel\"\n           class=\"form-control bottom-buffer\"\n    />\n    <span class=\"help-block\" *ngIf=\"!verifypwd.valid && verifypwd.touched\">\n      Please re-enter your password!\n   </span>\n\n      <select name=\"role\"\n              id=\"role\"\n              class=\"form-control\"\n              ngModel\n              #role=\"ngModel\"\n              placeholder = \"Select Role\"\n              required\n              class=\"form-control bottom-buffer\">\n          <option value=\"\" disabled selected hidden>Select role</option>\n          <option value=\"Fan\">Fan</option>\n          <option value=\"Critic\">Critic</option>\n          <option value=\"admin\">admin</option>\n          <option value=\"moderator\">moderator</option>\n      </select>\n    <button class=\"btn btn-primary btn-block bottom-buffer\" type=\"submit\" [disabled]=\"!f.valid\">Register</button>\n    <button class=\"btn btn-danger btn-block bottom-buffer  \"\n            [routerLink]=\"['/login']\" >Cancel</button>\n  </form>\n</div>"
+module.exports = "<div class=\"container\">\n  <div *ngIf=\"userExistsFlag\"\n       class=\"alert alert-danger\">\n    {{userExistsMessage}}\n  </div>\n  <div *ngIf=\"errorFlag\"\n       class=\"alert alert-danger\">\n    {{errorMessage}}\n  </div>\n  <h1>User Registration</h1>\n  <form (ngSubmit) = \"register()\" #f=\"ngForm\">\n    <input placeholder=\"username\"\n           name=\"email\"\n           type=\"text\"\n           class=\"form-control bottom-buffer\"\n           ngModel\n           required\n           #email=\"ngModel\"/>\n    <span class=\"help-block\" *ngIf=\"!email.valid && email.touched\">\n      Username cannot be blank!\n    </span>\n    <input placeholder=\"password\"\n           name=\"password\"\n           type=\"password\"\n           class=\"form-control bottom-buffer\"\n           ngModel\n           required\n           #password=\"ngModel\"\n    />\n    <span class=\"help-block\" *ngIf=\"!password.valid && password.touched\">\n      Please enter a valid password!\n   </span>\n    <input placeholder=\"Verify Password\"\n           type=\"password\"\n           name=\"verifypwd\"\n           ngModel\n           required\n           #verifypwd=\"ngModel\"\n           class=\"form-control bottom-buffer\"\n    />\n    <span class=\"help-block\" *ngIf=\"!verifypwd.valid && verifypwd.touched\">\n      Please re-enter your password!\n   </span>\n\n      <select name=\"role\"\n              id=\"role\"\n              class=\"form-control\"\n              ngModel\n              #role=\"ngModel\"\n              placeholder = \"Select Role\"\n              required\n              class=\"form-control bottom-buffer\">\n          <option value=\"\" disabled selected hidden>Select role</option>\n          <option value=\"Fan\">Fan</option>\n          <option value=\"Critic\">Critic</option>\n      </select>\n    <button class=\"btn btn-primary btn-block bottom-buffer\" type=\"submit\" [disabled]=\"!f.valid\">Register</button>\n    <button class=\"btn btn-danger btn-block bottom-buffer  \"\n            [routerLink]=\"['/login']\" >Cancel</button>\n  </form>\n</div>"
 
 /***/ }),
 
@@ -1443,7 +1450,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/userprofile/userprofile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--\n<div class=\"container\"></div>\n\n<div class=\"top-margin container\">\n  <dl>{{user['firstName']}}</dl>\n  <dl>{{user['lastName']}}</dl>\n  <dl>{{user['email']}}</dl>\n  <a *ngIf=\"!alreadyFollows\" (click)=\"followUser()\">Follow User</a>\n  <a *ngIf=\"alreadyFollows\"(click)=\"unfollowUser()\">UnFollow User</a>\n</div>\n-->\n\n<div class=\"container-fluid custom-center-container\">\n\n  <nav class=\"navbar navbar-fixed-top navbar-custom\">\n    <div class=\"container-fluid\">\n      <a class=\"navbar-brand pull-left\" [routerLink]=\"['/home']\">\n                <span\n                        class=\"glyphicon glyphicon-home pull-left glyph-color\">\n\n                </span>\n      </a>\n      <a class=\"navbar-brand pull-right\" [routerLink]=\"['/profile']\">\n                <span\n                        class=\"glyphicon glyphicon-user pull-right glyph-color\"> Edit Profile</span>\n\n      </a>\n    </div>\n  </nav>\n</div>\n\n<div class=\"container top-margin\">\n  <div class=\"row\">\n    <h1> User Details</h1>\n    <div class=\"col-md-12\">\n      <h2 class=\"namedH\">Email: {{user['email']}}</h2>\n      <h2 class=\"namedH\">First Name: {{user['firstName']}}</h2>\n      <h2 class=\"namedH\">Last Name: {{user['lastName']}}</h2>\n    </div>\n    <div class=\"row\">\n      <button *ngIf=\"!alreadyFollows\" class=\"btn btn-primary\" (click)=\"followUser()\"> Follow</button>\n      <button *ngIf=\"alreadyFollows\" class=\"btn btn-danger\" (click)=\"unfollowUser()\"> Unfollow</button>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<!--\n<div class=\"container\"></div>\n\n<div class=\"top-margin container\">\n  <dl>{{user['firstName']}}</dl>\n  <dl>{{user['lastName']}}</dl>\n  <dl>{{user['email']}}</dl>\n  <a *ngIf=\"!alreadyFollows\" (click)=\"followUser()\">Follow User</a>\n  <a *ngIf=\"alreadyFollows\"(click)=\"unfollowUser()\">UnFollow User</a>\n</div>\n-->\n\n<div class=\"container-fluid custom-center-container\">\n\n  <nav class=\"navbar navbar-fixed-top navbar-custom\">\n    <div class=\"container-fluid\">\n      <a class=\"navbar-brand pull-left\" [routerLink]=\"['/home']\">\n                <span\n                        class=\"glyphicon glyphicon-home pull-left glyph-color\">\n\n                </span>\n      </a>\n      <a class=\"navbar-brand pull-right\" [routerLink]=\"['/profile']\">\n                <span\n                        class=\"glyphicon glyphicon-user pull-right glyph-color\"> Edit Profile</span>\n\n      </a>\n    </div>\n  </nav>\n</div>\n\n<div class=\"container top-margin\">\n  <div class=\"row\">\n    <h1> User Details</h1>\n    <div class=\"col-md-12\">\n      <h2 class=\"namedH\">Email: {{user['email']}}</h2>\n      <h2 class=\"namedH\">First Name: {{user['firstName']}}</h2>\n      <h2 class=\"namedH\">Last Name: {{user['lastName']}}</h2>\n    </div>\n    <div class=\"row\">\n      <button *ngIf=\"!alreadyFollows && !sameUser\" class=\"btn btn-primary\" (click)=\"followUser()\"> Follow</button>\n      <button *ngIf=\"alreadyFollows\" class=\"btn btn-danger\" (click)=\"unfollowUser()\"> Unfollow</button>\n    </div>\n  </div>\n</div>\n\n<div class=\"container top-margin\">\n  <div class=\"col-md-4\">\n    <h3 class=\"blue-text\">This user follows: {{followees.length}} users</h3>\n    <ul class=\"list-group\" *ngIf=\"followees\">\n      <li class=\"list-group-item\" *ngFor = \"let user of followees\"><a [routerLink]=\"['/userprofile', user['_id']]\" target=\"_blank\">{{user['firstName'] || user['email']}}</a></li>\n    </ul>\n  </div>\n\n  <div class=\"col-md-4\">\n    <h3 class=\"blue-text\">This user is followed by: {{followers.length}} users</h3>\n    <ul class=\"list-group\" *ngIf=\"followers\">\n      <li class=\"list-group-item\" *ngFor = \"let user of followers\"><a [routerLink]=\"['/userprofile', user['_id']]\" target=\"_blank\">{{user['firstName'] || user['email']}}</a></li>\n    </ul>\n  </div>\n  <div class=\"col-md-4\">\n    <h3 class=\"blue-text\"> Reviews left by this user</h3>\n    <div class=\"col-md-12\">\n      <ul class=\"list-group\">\n        <li class=\"list-group-item\" *ngFor = \"let review of userReviews\">{{review.review}}</li>\n      </ul>\n    </div>\n  </div>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -1456,6 +1463,7 @@ module.exports = "<!--\n<div class=\"container\"></div>\n\n<div class=\"top-marg
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__ = __webpack_require__("../../../../../src/app/services/user.service.client.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_shared_service__ = __webpack_require__("../../../../../src/app/services/shared.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_review_service_client__ = __webpack_require__("../../../../../src/app/services/review.service.client.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1469,12 +1477,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var UserprofileComponent = (function () {
-    function UserprofileComponent(activatedRoute, userService, sharedService) {
+    function UserprofileComponent(activatedRoute, userService, sharedService, reviewService) {
         this.activatedRoute = activatedRoute;
         this.userService = userService;
         this.sharedService = sharedService;
+        this.reviewService = reviewService;
         this.user = {};
+        this.followees = [];
+        this.followers = [];
     }
     UserprofileComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1485,14 +1497,42 @@ var UserprofileComponent = (function () {
         this.userService.findUserById(this.userId)
             .subscribe(function (data) {
             _this.user = data;
+            console.log(JSON.stringify(_this.user));
         });
         this.userService.fetchCurrentUser()
             .subscribe(function (data) {
             if (data) {
                 _this.loggedInUser = _this.sharedService.user;
-                _this.getFollowees();
-                console.log('Logged in user is ' + _this.loggedInUser);
+                if (_this.user['_id'] === _this.loggedInUser['_id']) {
+                    _this.sameUser = true;
+                }
+                else {
+                    _this.sameUser = false;
+                }
+                _this.profileUserFollowees = _this.user['follows'].length > 0;
+                if (_this.profileUserFollowees) {
+                    _this.userService.getFolloweeDetails(_this.user['follows'])
+                        .subscribe(function (result) {
+                        _this.followees = result;
+                        console.log(_this.followees);
+                    });
+                }
+                _this.profileUserFollowers = _this.user['followers'].length > 0;
+                if (_this.profileUserFollowers) {
+                    _this.userService.getFolloweeDetails(_this.user['followers'])
+                        .subscribe(function (result) {
+                        _this.followers = result;
+                        console.log(_this.followers);
+                    });
+                }
+                console.log(_this.user['_id']);
+                console.log(JSON.stringify(_this.profileUserFollowees));
             }
+        });
+        this.reviewService.findReviewsByUserId(this.userId)
+            .subscribe(function (data) {
+            _this.userReviews = data;
+            console.log('User reviews are ' + _this.userReviews);
         });
     };
     UserprofileComponent.prototype.followUser = function () {
@@ -1509,11 +1549,12 @@ var UserprofileComponent = (function () {
             console.log('Successfully Followed User');
         });
     };
-    UserprofileComponent.prototype.getFollowees = function () {
+    UserprofileComponent.prototype.getFollowees = function (userId) {
         var _this = this;
-        this.userService.getFollowees(this.loggedInUser['_id'])
+        this.userService.getFollowees(userId)
             .subscribe(function (data) {
             _this.currentUserFollows = data;
+            console.log();
             console.log('Current user Follows ' + JSON.stringify(_this.currentUserFollows['follows']));
             if (_this.currentUserFollows['follows'].lastIndexOf(_this.userId) > -1) {
                 _this.alreadyFollows = true;
@@ -1531,10 +1572,10 @@ UserprofileComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/userprofile/userprofile.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/userprofile/userprofile.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_shared_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_shared_service__["a" /* SharedService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_user_service_client__["a" /* UserService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_shared_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_shared_service__["a" /* SharedService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__services_review_service_client__["a" /* ReviewServiceClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_review_service_client__["a" /* ReviewServiceClient */]) === "function" && _d || Object])
 ], UserprofileComponent);
 
-var _a, _b, _c;
+var _a, _b, _c, _d;
 //# sourceMappingURL=userprofile.component.js.map
 
 /***/ }),
@@ -2104,6 +2145,13 @@ var UserService = (function () {
     };
     UserService.prototype.getFollowees = function (loggedInId) {
         return this._http.get(this.baseUrl + '/api/v1/user/' + loggedInId + '/follows')
+            .map(function (res) {
+            return res.json();
+        });
+    };
+    UserService.prototype.getFolloweeDetails = function (array) {
+        console.log(array);
+        return this._http.post(this.baseUrl + '/api/v1/userDetails', array)
             .map(function (res) {
             return res.json();
         });

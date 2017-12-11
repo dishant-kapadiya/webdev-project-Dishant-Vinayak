@@ -185,6 +185,17 @@ export class MovieComponent implements OnInit {
                 }
             );
     }
+    deleteReview(id: string) {
+        this.reviewService.deleteReview(id)
+            .subscribe(
+                (data) => {
+                    location.reload(true);
+                    console.log('Deleted review');
+                },
+                (Err) => {
+                }
+                );
+    }
 
 
 }

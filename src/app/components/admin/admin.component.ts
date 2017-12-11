@@ -98,7 +98,7 @@ export class AdminComponent implements OnInit {
        this.updatedUser['email'] = this.email;
        this.userService.updateUser(this.selectedUserId, this.updatedUser)
            .subscribe((user2: any) => {
-                   this.router.navigate(['/admin']);
+                   location.reload(true);
                    this.firstName = this.lastName = this.email = this.role = '';
                },
                (error: any) => {
@@ -111,8 +111,7 @@ export class AdminComponent implements OnInit {
         this.userService.deleteUser(userId)
             .subscribe(
                 (user2: any) => {
-                    this.users.splice(user2.index, 1);
-                    this.router.navigate(['/admin']);
+                    location.reload(true);
                     this.firstName = this.lastName = this.email = this.role = '';
                 },
                 (error: any) => {
