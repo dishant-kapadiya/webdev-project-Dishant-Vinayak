@@ -38,11 +38,11 @@ userModel.findUserByFacebookId = function (facebookId) {
 };
 
 userModel.findFollowsList = function (userId) {
-	return userModel.find({'_id': userId}).select('follows');
+	return userModel.findOne({'_id': userId}).select('follows');
 };
 
 userModel.findFollowersList = function (userId) {
-	return userModel.find({'_id': userId}).select('followers');
+	return userModel.findOne({'_id': userId}).select('followers');
 };
 
 userModel.addFollower = function (userId, otherId) {
