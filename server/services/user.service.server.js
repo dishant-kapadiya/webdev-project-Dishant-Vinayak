@@ -11,7 +11,7 @@ module.exports = function (app) {
 	app.get('/api/v1/user', findUser);
 	app.get('/api/v1/allUsers', allUsers);
 	app.get('/api/v1/user/:userId', findUserById);
-	app.get('/api/v1/userDetails', getUserDetails);
+	app.post('/api/v1/userDetails', getUserDetails);
 	app.get('/api/v1/user/:userId/follows', findFollowsList);
 	app.get('/api/v1/user/:userId/followers', findFollowersList);
 	app.get('/api/v1/user/:userId/follow/:otherUserId', addFollower);
@@ -281,27 +281,34 @@ module.exports = function (app) {
 			});
 	}
 
-	function getUserDetails(req, res) {
-		let userIds = req.body;
+    function getUserDetails(req, res) {
+        let userIds = req.body;
 
-		let users = Promise.all(userIds.map(function(x) {
-			userModel.findUserById(x)
-				.then(function(user) {
-					return {
-						email: user['email'],
-						firstName: user['firstName'],
-						lastName: user['lastName'],
-					}
-				})
-				.catch(function(error){
-					return "Invalid Email"
-				})
-		}));
+        Promise.all(userIds.map(function(x) {
+            userModel.findUserById(x)
+                .then(function(user) {
+                    return {
+                        email: user['email'],
+                        firstName: user['firstName'],
+                        lastName: user['lastName'],
+                    }
+                })
+                .catch(function(error){
+                    return "Invalid Email"
+                })
+        }))
+            .then(function (users){
+                res.status(200).json(users)
+            })
+            .catch(function (error){
+                res.status(404).json({
+                    "error": "some or all users not found"
+                })
+            });
 
-		console.log(users);
+        // console.log(users);
 
-	}
-
+    }
 	function updateUser(req, res) {
 		let userId = req.params.userId;
 		let user = req.body;

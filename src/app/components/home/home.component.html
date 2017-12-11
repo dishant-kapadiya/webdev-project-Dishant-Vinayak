@@ -5,7 +5,6 @@
             <a class="navbar-brand pull-left" [routerLink]="['/home']">
                 <span
                     class="glyphicon glyphicon-home pull-left glyph-color">
-
                 </span>
             </a>
             <a class="navbar-brand pull-right" *ngIf="!loggedIn" [routerLink]="['/register']">
@@ -18,7 +17,7 @@
                     class="glyphicon glyphicon-log-in pull-right glyph-color"> Login</span>
 
             </a>
-            <a class="navbar-brand pull-right" *ngIf="loggedIn" [routerLink]="['/profile']">
+            <a class="navbar-brand pull-right" *ngIf="loggedIn" [routerLink]="['/userprofile', currentUser['_id']]">
                 <span
                         class="glyphicon glyphicon-user pull-right glyph-color"> Profile</span>
 

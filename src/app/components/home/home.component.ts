@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
     movies3: any;
     loggedIn = false;
     email: string;
+    currentUser: any;
 
     constructor(private pocService: PocServiceClient, private sharedService: SharedService,
                 private userService: UserService, private router: Router, private movieService: MovieServiceClient) {
@@ -30,6 +31,7 @@ export class HomeComponent implements OnInit {
                 if (data) {
                     this.loggedIn = true;
                     this.email = this.sharedService.user['firstName'] || this.sharedService.user['email'];
+                    this.currentUser = this.sharedService.user;
                 }
             });
         console.log('User is ' + JSON.stringify(this.sharedService.user));
