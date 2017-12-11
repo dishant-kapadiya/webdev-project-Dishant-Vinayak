@@ -39,6 +39,7 @@ app.use(function (req, res, next) {
 
 const port = process.env.PORT || '3100';
 app.set('port', port);
+require('server/test-mongodb/app')(app);
 
 
 // Create HTTP server
