@@ -5,7 +5,7 @@ module.exports = mongoose.Schema({
 	email: String,
 	password: String,
 	phone: String,
-    role: {type: String, default: 'Fan', enum: ['Fan', 'Critic', 'Admin']},
+    role: {type: String, default: 'Fan', enum: ['Fan', 'Critic', 'moderator', 'admin']},
 	genre: {type: [String], default: []},
 	follows: [{type: mongoose.Schema.ObjectId, ref: 'user', default: [], unique: true}],
 	followers: [{type: mongoose.Schema.ObjectId, ref: 'user', default: [], unique: true}],
