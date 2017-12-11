@@ -142,4 +142,16 @@ export class AdminComponent implements OnInit {
             );
     }
 
+    logout() {
+        this.userService.logout()
+            .subscribe(
+                (updatedUser) => {
+                    location.reload(true);
+                    this.router.navigate(['/home']);
+                },
+                (err) => {
+                }
+            );
+    }
+
 }

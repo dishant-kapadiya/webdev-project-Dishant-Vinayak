@@ -211,3 +211,8 @@ body {
 .namedH {
     font-family: Verdana;
 }
+
+hr {
+    size: 10cm;
+    color: dimgray;
+}
