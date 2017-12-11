@@ -21,6 +21,10 @@ userModel.findUserById = function (userId) {
 	return userModel.findOne({_id: userId});
 };
 
+userModel.findUserDetailsById = function (userId) {
+	return userModel.findOne({_id: userId}).select(['email', 'firstName', 'lastName']);
+};
+
 userModel.allUsers = function () {
 	return userModel.find({})
 };

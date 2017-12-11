@@ -57,7 +57,7 @@ module.exports = function (app) {
 	passport.use(new LocalStrategy((username, password, done) => {
 			userModel.findUserByEmail(username)
 				.then(function (user) {
-						if(user && bcrypt.compareSync(password, user.password)) {
+						if (user && bcrypt.compareSync(password, user.password)) {
 							return done(null, user);
 						} else {
 							return done(null, false);
@@ -149,10 +149,10 @@ module.exports = function (app) {
 
 	function createUser(req, res) {
 		userModel.createUser(req.body)
-			.then(function(user){
+			.then(function (user) {
 				res.send(user);
 			})
-			.catch(function(err){
+			.catch(function (err) {
 				res.status(400);
 				res.send({
 					"error": "error while creating user"
@@ -171,10 +171,10 @@ module.exports = function (app) {
 
 	function allUsers(req, res) {
 		userModel.allUsers()
-			.then(function (users){
+			.then(function (users) {
 				res.status(200).json(users)
 			})
-			.catch(function (error){
+			.catch(function (error) {
 				res.status(404).json({
 					error: "couldn't fetch all users"
 				})
@@ -183,10 +183,10 @@ module.exports = function (app) {
 
 	function findFollowsList(req, res) {
 		userModel.findFollowsList(req.params['userId'])
-			.then(function (users){
+			.then(function (users) {
 				res.status(200).json(users)
 			})
-			.catch(function (error){
+			.catch(function (error) {
 				res.status(404).json({
 					error: "couldn't fetch follows list"
 				})
@@ -195,10 +195,10 @@ module.exports = function (app) {
 
 	function findFollowersList(req, res) {
 		userModel.findFollowersList(req.params['userId'])
-			.then(function (users){
+			.then(function (users) {
 				res.status(200).json(users)
 			})
-			.catch(function (error){
+			.catch(function (error) {
 				res.status(404).json({
 					error: "couldn't fetch follows list"
 				})
@@ -207,28 +207,28 @@ module.exports = function (app) {
 
 	function addFollower(req, res) {
 		userModel.addFollower(req.params['userId'], req.params['otherUserId'])
-			.then(function (users){
+			.then(function (users) {
 				res.sendStatus(200)
 			})
-			.catch(function (error){
+			.catch(function (error) {
 				res.sendStatus(404)
 			})
 	}
 
 	function removeFollower(req, res) {
 		userModel.removeFollower(req.params['userId'], req.params['otherUserId'])
-			.then(function (users){
+			.then(function (users) {
 				res.sendStatus(200)
 			})
-			.catch(function (error){
+			.catch(function (error) {
 				res.sendStatus(404)
 			})
 	}
 
 	function findUserByEmail(req, res) {
 		userModel.findUserByEmail(req.email)
-			.then(function (user){
-				if(user === null){
+			.then(function (user) {
+				if (user === null) {
 					res.status(404).send({
 						"error": "user not found"
 					});
@@ -245,8 +245,8 @@ module.exports = function (app) {
 
 	function findUserByCredentials(req, res) {
 		userModel.findUserByCredentials(req.email, req.password)
-			.then(function (user){
-				if(user === null){
+			.then(function (user) {
+				if (user === null) {
 					res.status(404).send({
 						"error": "user not found"
 					});
@@ -265,8 +265,8 @@ module.exports = function (app) {
 		let userId = req.params.userId;
 
 		userModel.findUserById(userId)
-			.then(function (user){
-				if(user === null){
+			.then(function (user) {
+				if (user === null) {
 					res.status(404).send({
 						"error": "user not found"
 					});
@@ -281,40 +281,34 @@ module.exports = function (app) {
 			});
 	}
 
-    function getUserDetails(req, res) {
-        let userIds = req.body;
+	function getUserDetails(req, res) {
+		let userIds = req.body;
 
-        Promise.all(userIds.map(function(x) {
-            userModel.findUserById(x)
-                .then(function(user) {
-                    return {
-                        email: user['email'],
-                        firstName: user['firstName'],
-                        lastName: user['lastName'],
-                    }
-                })
-                .catch(function(error){
-                    return "Invalid Email"
-                })
-        }))
-            .then(function (users){
-                res.status(200).json(users)
-            })
-            .catch(function (error){
-                res.status(404).json({
-                    "error": "some or all users not found"
-                })
-            });
 
-        // console.log(users);
+		let promises = userIds.map(x => userModel.findUserDetailsById(x));
 
-    }
+		console.log(promises);
+
+		Promise.all(promises)
+			.then(function (users) {
+				res.status(200).json(users)
+			})
+			.catch(function (error) {
+				res.status(404).json({
+					"error": "some or all users not found"
+				})
+			});
+
+		// console.log(users);
+
+	}
+
 	function updateUser(req, res) {
 		let userId = req.params.userId;
 		let user = req.body;
 
 		userModel.updateUser(userId, user)
-			.then(function (result){
+			.then(function (result) {
 				res.status(200).send({
 					"message": "user updated successfully"
 				});
@@ -330,9 +324,9 @@ module.exports = function (app) {
 		let userId = req.params.userId;
 
 		userModel.deleteUser(userId)
-			.then(function (result){
+			.then(function (result) {
 				console.log(result);
-				if(result.result.n === 0){
+				if (result.result.n === 0) {
 					res.status(404).send({
 						"error": "user not found"
 					});
