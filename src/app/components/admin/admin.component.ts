@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service.client";
 import {ReviewServiceClient} from "../../services/review.service.client";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-admin',
@@ -21,10 +22,13 @@ export class AdminComponent implements OnInit {
     updatedUser: any;
     allReviews: any;
 
-    constructor(private router: Router, private userService: UserService, private reviewService: ReviewServiceClient) {
+    constructor(private router: Router, private userService: UserService, private reviewService: ReviewServiceClient,
+                private titleService: Title) {
     }
 
     ngOnInit() {
+
+        this.titleService.setTitle('Admin Page');
         this.userService.getAllUsers()
             .subscribe((users) => {
                 this.users = users;
