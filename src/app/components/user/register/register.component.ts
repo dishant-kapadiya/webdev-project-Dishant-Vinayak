@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
                         role: this.role
                     };
                     if (this.password === this.verifypwd) {
-                        this.userService.register(this.email, this.password)
+                        this.userService.register(this.email, this.password, this.role)
                             .subscribe(
                                 (user2: any) => {
                                     this.router.navigate(['/profile']);
