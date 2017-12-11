@@ -283,11 +283,7 @@ module.exports = function (app) {
 
 	function getUserDetails(req, res) {
 		let userIds = req.body;
-
-
 		let promises = userIds.map(x => userModel.findUserDetailsById(x));
-
-		console.log(promises);
 
 		Promise.all(promises)
 			.then(function (users) {
@@ -298,9 +294,6 @@ module.exports = function (app) {
 					"error": "some or all users not found"
 				})
 			});
-
-		// console.log(users);
-
 	}
 
 	function updateUser(req, res) {
