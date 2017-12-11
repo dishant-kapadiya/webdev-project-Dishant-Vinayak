@@ -17,21 +17,21 @@ export class HomeComponent implements OnInit {
     movies1: any;
     movies2: any;
     movies3: any;
-    loggedIn: boolean;
+    loggedIn = false;
     email: string;
 
-    constructor(private pocService: PocServiceClient, private sharedService: SharedService, private userService: UserService,
-                private router: Router, private movieService: MovieServiceClient) {
+    constructor(private pocService: PocServiceClient, private sharedService: SharedService,
+                private userService: UserService, private router: Router, private movieService: MovieServiceClient) {
     }
 
     ngOnInit() {
-        // this.userService.loggedIn();
-        if (this.sharedService.user) {
-            this.loggedIn = true;
-            this.email = this.sharedService.user['email'];
-        } else {
-            this.loggedIn = false;
-        }
+        this.userService.fetchCurrentUser()
+            .subscribe((data) => {
+                if (data) {
+                    this.loggedIn = true;
+                    this.email = this.sharedService.user['email'];
+                }
+            });
         console.log('User is ' + JSON.stringify(this.sharedService.user));
         this.findMostPopular();
         this.findHighestGrossing();
@@ -99,7 +99,8 @@ export class HomeComponent implements OnInit {
         this.userService.logout()
             .subscribe(
                 (updatedUser) => {
-                    this.router.navigate(['/login']);
+                    location.reload(true);
+                    this.router.navigate(['/home']);
                 },
                 (err) => {
                 }
