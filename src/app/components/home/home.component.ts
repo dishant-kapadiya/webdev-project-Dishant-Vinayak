@@ -3,6 +3,7 @@ import {PocServiceClient} from "../../services/poc.service.client";
 import {SharedService} from "../../services/shared.service";
 import {UserService} from "../../services/user.service.client";
 import {Router} from "@angular/router";
+import {MovieServiceClient} from "../../services/movie.service.client";
 
 @Component({
     selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
     email: string;
 
     constructor(private pocService: PocServiceClient, private sharedService: SharedService, private userService: UserService,
-                private router: Router) {
+                private router: Router, private movieService: MovieServiceClient) {
     }
 
     ngOnInit() {
@@ -103,6 +104,19 @@ export class HomeComponent implements OnInit {
                 (err) => {
                 }
             );
+    }
+
+    createMovie(id: String, title: String) {
+        let movie = {};
+        movie['movieId'] = id;
+        movie['title'] = title;
+        console.log("Insdie create movie in home component");
+        this.movieService.createMovie(movie)
+            .subscribe((mov) => {
+                    this.router.navigate(['movie', mov.movieId]);
+                },
+                (error) => {
+                });
     }
 
 }

@@ -1,99 +1,108 @@
 <div class="container">
-  <div class="jumbotron row">
-    <div class="col-sm-4" ng-if="model.movie.poster_path">
-      <img src="https://image.tmdb.org/t/p/w300/{{movieById.poster_path}}">
-    </div>
-    <div class="col-sm-8">
-      <h1>{{movieById.title}}</h1>
-      <p>{{movieById.overview}}</p>
-    </div>
-  </div>
-
-  <div class="row">
-
-    <div class="col-xs-12 col-sm-6">
-      <div class="panel panel-primary">
-        <div class="panel-heading">Details</div>
-        <table class="table table-bordered table-responsive table-striped">
-          <data>
-            <tr>
-              <td><i class="fa fa-clock-o" aria-hidden="true"></i> Runtime</td>
-              <td>{{movieById.runtime}} minutes</td></tr>
-            <tr ng-if="model.movie.status == 'Released'">
-              <td><i class="fa fa-calendar" aria-hidden="true"></i> Release Date</td>
-              <td><span>{{movieById.release_date}}</span></td>
-            </tr>
-            <tr>
-              <td><i class="fa fa-credit-card" aria-hidden="true"></i> Budget</td>
-              <td>{{movieById.budget | currency:"$"}}</td>
-            </tr>
-            <tr>
-              <td><i class="fa fa-money" aria-hidden="true"></i> Revenue</td>
-              <td>{{movieById.revenue | currency:"$"}}</td>
-            </tr>
-          </data>
-        </table>
-      </div>
-
-      <div class="panel panel-default">
-        <div class="panel-heading">Genres</div>
-
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let genre of movieById.genres">
-            <a href="#!/genre/{{genre.id}}">{{genre.name}}</a>
-          </li>
-        </ul>
-      </div>
-
-
-
-    <div class="col-xs-12 col-sm-6">
-
-      <div class="panel panel-default">
-        <div class="panel-heading">Artists</div>
-        <div class="panel-body row">
-          <div class="col-sm-3" *ngFor="let cast of movieById.credits.cast; let i=index">
-            <div *ngIf="i < 5">
-              <a href="#!/artist/{{cast.id}}">
-                <img src="https://image.tmdb.org/t/p/w92{{cast.profile_path}}" alt="{{cast.name}}">
-              </a>
-              <div class="caption">
-                <h5><a href="#!/artist/{{cast.id}}">{{cast.name}}</a></h5>
-                <p>as {{cast.character}}</p>
-              </div>
-            </div>
-          </div>
+    <div class="jumbotron row">
+        <div class="col-sm-4" *ngIf="movieByTMDBId['poster_path']">
+            <img src="https://image.tmdb.org/t/p/w300/{{movieByTMDBId['poster_path']}}">
         </div>
-      </div>
-
-      <div class="panel panel-default" *ngIf="currentUser._id">
-
-        <div class="panel-heading">Reviews</div>
-
-        <div *ngIf="currentUser.role === 'Critic' && canReview" class="panel-body form">
-          <textarea class="form-control" rows="3" [(ngModel])="newReview"></textarea>
-          <a (click)="createReview(newReview)" class="btn btn-success">Post Review</a>
-        </div>
-
-        <div ng-if="model.reviews.length" class="list-group" *ngFor="let review of reviewsForMovie">
-          <div class="list-group-item">
-            <h4 class="list-group-item-heading">
-              <a href="#!/profile/{{review.username}}">{{review.username}}</a>
-            </h4>
-            <p class="list-group-item-text">
-              {{review.review}}
+        <div class="col-sm-8">
+            <h1>{{movieByTMDBId['title']}}</h1>
+            <p>{{movieByTMDBId['overview']}}</p>
+            <p>
+                <a *ngIf="movieByTMDBId['homepage']"
+                   href="{{movieByTMDBId['homepage']}}"
+                   class="btn btn-default btn-lg"
+                   target="_blank">
+                    <i class="fa fa-external-link" aria-hidden="true"></i> Visit Website
+                </a>
             </p>
-          </div>
         </div>
-
-        <div *ngIf="!reviewsForMovie.length" class="panel-body">
-          No critic has reviewed this movie yet! Check back later.
-        </div>
-
-      </div>
-
     </div>
 
-  </div>
 
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Details</div>
+                <table class="table table-bordered table-responsive table-striped">
+                        <tr>
+                            <td><i class="fa fa-clock-o" aria-hidden="true"></i> Runtime</td>
+                            <td>{{movieByTMDBId['runtime']}} minutes</td>
+                        </tr>
+                        <tr ng-if="model.movie.status == 'Released'">
+                            <td><i class="fa fa-calendar" aria-hidden="true"></i> Release Date</td>
+                            <td><span>{{movieByTMDBId['release_date']}}</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-credit-card" aria-hidden="true"></i> Budget</td>
+                            <td>{{movieByTMDBId['budget'] | currency: "USD":'symbol-narrow':'4.2-2'}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-money" aria-hidden="true"></i> Revenue</td>
+                            <td>{{movieByTMDBId['revenue'] | currency: "USD":'symbol-narrow':'4.2-2'}}</td>
+                        </tr>
+                </table>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Genres</div>
+
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let genre of movieByTMDBId['genres']"> {{genre['name']}}
+                    </li>
+                </ul>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Production Companies</div>
+
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let co of movieByTMDBId['production_companies']">
+                        {{co['name']}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Artists</div>
+                <div class="panel-body row">
+                    <div class="col-sm-3" *ngFor="let cast of movieByTMDBId['credits']['cast']; let i=index">
+                        <div *ngIf="i<8">
+                            <a href="#!/artist/{{cast['id']}}">
+                                <img src="https://image.tmdb.org/t/p/w92{{cast['profile_path']}}"
+                                     alt="{{cast['name']}}">
+                            </a>
+                            <div class="caption">
+                                <h5><a href="#!/artist/{{cast['id']}}">{{cast['name']}}</a></h5>
+                                <p>as {{cast['character']}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">Reviews</div>
+                <form>
+                <div *ngIf="currentUser['role'] === 'Critic' && canReview" class="panel-body form">
+                    <textarea class="form-control" rows="3" ngModel #review="ngModel" name="newReview"></textarea>
+                    <a (click)="createReview(newReview)" class="btn btn-success">Post Review</a>
+                </div>
+                </form>
+                <div *ngFor="let review of reviewsForMovie">
+                    <div class="list-group-item">
+                        <h4 class="list-group-item-heading">
+                            <a [routerLink]="['/userprofile/', review['ownerId']]">{{review['username']}}</a>
+                        </h4>
+                        <p class="list-group-item-text">
+                            {{review['review']}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

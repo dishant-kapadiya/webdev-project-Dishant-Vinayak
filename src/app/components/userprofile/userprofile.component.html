@@ -1,0 +1,10 @@
+
+<div class="container"></div>
+
+<div class="top-margin container">
+  <dl>{{user['firstName']}}</dl>
+  <dl>{{user['lastName']}}</dl>
+  <dl>{{user['email']}}</dl>
+  <a *ngIf="!alreadyFollows" (click)="followUser()">Follow User</a>
+  <a *ngIf="alreadyFollows"(click)="unfollowUser()">UnFollow User</a>
+</div>

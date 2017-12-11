@@ -13,6 +13,7 @@ import {AuthGuard} from "./services/auth.service";
 import {AdminComponent} from "./components/admin/admin.component";
 import {MovieComponent} from "./components/movie/movie.component";
 import {IndexComponent} from "./components/index/index.component";
+import {UserprofileComponent} from "./components/userprofile/userprofile.component";
 
 
 const APP_ROUTES: Routes = [
@@ -23,7 +24,8 @@ const APP_ROUTES: Routes = [
     {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
     {path: 'admin', component: AdminComponent},
     {path: 'movie/:movieId', component: MovieComponent},
-    {path: 'home', component: HomeComponent}
+    {path: 'home', component: HomeComponent},
+    {path: 'userprofile/:userId', component: UserprofileComponent}
 ];
 
 // Export the routes as module providers

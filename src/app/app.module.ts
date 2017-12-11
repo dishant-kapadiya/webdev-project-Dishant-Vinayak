@@ -19,6 +19,7 @@ import {ReviewServiceClient} from "./services/review.service.client";
 import { MovieComponent } from './components/movie/movie.component';
 import {MovieServiceClient} from "./services/movie.service.client";
 import { IndexComponent } from './components/index/index.component';
+import { UserprofileComponent } from './components/userprofile/userprofile.component';
 
 @NgModule({
     // Declare components here
@@ -31,7 +32,8 @@ import { IndexComponent } from './components/index/index.component';
         HomeComponent,
         AdminComponent,
         MovieComponent,
-        IndexComponent
+        IndexComponent,
+        UserprofileComponent
     ],
     imports: [
         BrowserModule,

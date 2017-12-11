@@ -25,13 +25,14 @@ export class MovieServiceClient {
     }
 
     createMovie(movie) {
-        return this._http.post(this.baseUrl + '/api/v1/movies/' , {movie: movie})
+        return this._http.post(this.baseUrl + '/api/v1/movie' , movie)
             .map(
                 (res: Response) => {
                     const data = res.json();
                     return data;
                 }
             );
+
     }
 
     findMovieByObjectId(objectId) {

@@ -57,6 +57,22 @@ export class UserService {
             );
     }
 
+    fetchCurrentUser() {
+        this.options.withCredentials = true;
+        return this._http.post(this.baseUrl + '/api/v1/loggedIn', '', this.options)
+            .map(
+                (res: Response) => {
+                    const user = res.json();
+                    if (user !== 0) {
+                        this.sharedService.user = user; // setting user so as to share with all components
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            );
+    }
+
     loggedIn() {
         this.options.withCredentials = true;
         return this._http.post(this.baseUrl + '/api/v1/loggedIn', '', this.options)
@@ -85,15 +101,13 @@ export class UserService {
     }
 
     findUserById(userId: string) {
-        console.log('Reached here, userId is' + userId);
-        console.log('URL to be hit is ' + this.baseUrl + '/api/v1/user/' + userId);
         return this._http.get(this.baseUrl + '/api/v1/user/' + userId)
             .map(
                 (res: Response) => {
                     console.log('Reached here');
                     const data = res.json();
                     console.log('Data here is ' + JSON.stringify(data));
-                    return JSON.stringify(data);
+                    return data;
                 }
             );
     }
@@ -131,12 +145,47 @@ export class UserService {
             }
         );
     }
+
     getAllUsers() {
         return this._http.get(this.baseUrl + '/api/v1/allUsers').map(
             (res: Response) => {
                 const data = res.json();
                 return data;
             }
-        )
+        );
+    }
+
+    followUser(loggedInUserId: string, toBeFollowed: string) {
+        return this._http.get(this.baseUrl + '/api/v1/user/' + loggedInUserId + '/follow/' + toBeFollowed)
+            .map(
+                (res: Response) => {
+                    return res;
+                }
+            );
+    }
+
+    unfollowUser(loggedInUserId: string, toBeFollowed: string) {
+        return this._http.get(this.baseUrl + '/api/v1/user/' + loggedInUserId + '/unfollow/' + toBeFollowed)
+            .map(
+                (res: Response) => {
+                    return res;
+                }
+            );
+    }
+    getFollowers(loggedInId: string) {
+        return this._http.get(this.baseUrl + '/api/v1/user/' + loggedInId + '/followers')
+            .map(
+                (res: Response) => {
+                    return res.json();
+                }
+            );
+    }
+    getFollowees(loggedInId: string) {
+        return this._http.get(this.baseUrl + '/api/v1/user/' + loggedInId + '/follows')
+            .map(
+                (res: Response) => {
+                    return res.json();
+                }
+            );
     }
 }
