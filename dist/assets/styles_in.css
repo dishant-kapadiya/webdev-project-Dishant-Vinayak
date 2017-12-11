@@ -207,3 +207,7 @@ body {
 .aligned {
     alignment: center;
 }
+
+.namedH {
+    font-family: Verdana;
+}

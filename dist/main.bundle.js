@@ -1400,7 +1400,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/userprofile/userprofile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"container\"></div>\n\n<div class=\"top-margin container\">\n  <dl>{{user['firstName']}}</dl>\n  <dl>{{user['lastName']}}</dl>\n  <dl>{{user['email']}}</dl>\n  <a *ngIf=\"!alreadyFollows\" (click)=\"followUser()\">Follow User</a>\n  <a *ngIf=\"alreadyFollows\"(click)=\"unfollowUser()\">UnFollow User</a>\n</div>\n"
+module.exports = "<!--\n<div class=\"container\"></div>\n\n<div class=\"top-margin container\">\n  <dl>{{user['firstName']}}</dl>\n  <dl>{{user['lastName']}}</dl>\n  <dl>{{user['email']}}</dl>\n  <a *ngIf=\"!alreadyFollows\" (click)=\"followUser()\">Follow User</a>\n  <a *ngIf=\"alreadyFollows\"(click)=\"unfollowUser()\">UnFollow User</a>\n</div>\n-->\n\n<div class=\"container-fluid custom-center-container\">\n\n  <nav class=\"navbar navbar-fixed-top navbar-custom\">\n    <div class=\"container-fluid\">\n      <a class=\"navbar-brand pull-left\" [routerLink]=\"['/home']\">\n                <span\n                        class=\"glyphicon glyphicon-home pull-left glyph-color\">\n\n                </span>\n      </a>\n    </div>\n  </nav>\n</div>\n\n<div class=\"container top-margin\">\n  <div class=\"row\">\n    <h1> User Details</h1>\n    <div class=\"col-md-12\">\n      <h2 class=\"namedH\">Email: {{user['email']}}</h2>\n      <h2 class=\"namedH\">First Name: {{user['firstName']}}</h2>\n      <h2 class=\"namedH\">Last Name: {{user['lastName']}}</h2>\n    </div>\n    <div class=\"row\">\n      <button *ngIf=\"!alreadyFollows\" class=\"btn btn-primary\" (click)=\"followUser()\"> Follow</button>\n      <button *ngIf=\"alreadyFollows\" class=\"btn btn-danger\" (click)=\"unfollowUser()\"> Unfollow</button>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1455,12 +1455,14 @@ var UserprofileComponent = (function () {
     UserprofileComponent.prototype.followUser = function () {
         this.userService.followUser(this.loggedInUser['_id'], this.userId)
             .subscribe(function (data) {
+            location.reload(true);
             console.log('Successfully Followed User');
         });
     };
     UserprofileComponent.prototype.unfollowUser = function () {
         this.userService.unfollowUser(this.loggedInUser['_id'], this.userId)
             .subscribe(function (data) {
+            location.reload(true);
             console.log('Successfully Followed User');
         });
     };

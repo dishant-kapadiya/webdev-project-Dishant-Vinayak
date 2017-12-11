@@ -1,4 +1,4 @@
-
+<!--
 <div class="container"></div>
 
 <div class="top-margin container">
@@ -7,4 +7,34 @@
   <dl>{{user['email']}}</dl>
   <a *ngIf="!alreadyFollows" (click)="followUser()">Follow User</a>
   <a *ngIf="alreadyFollows"(click)="unfollowUser()">UnFollow User</a>
+</div>
+-->
+
+<div class="container-fluid custom-center-container">
+
+  <nav class="navbar navbar-fixed-top navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand pull-left" [routerLink]="['/home']">
+                <span
+                        class="glyphicon glyphicon-home pull-left glyph-color">
+
+                </span>
+      </a>
+    </div>
+  </nav>
+</div>
+
+<div class="container top-margin">
+  <div class="row">
+    <h1> User Details</h1>
+    <div class="col-md-12">
+      <h2 class="namedH">Email: {{user['email']}}</h2>
+      <h2 class="namedH">First Name: {{user['firstName']}}</h2>
+      <h2 class="namedH">Last Name: {{user['lastName']}}</h2>
+    </div>
+    <div class="row">
+      <button *ngIf="!alreadyFollows" class="btn btn-primary" (click)="followUser()"> Follow</button>
+      <button *ngIf="alreadyFollows" class="btn btn-danger" (click)="unfollowUser()"> Unfollow</button>
+    </div>
+  </div>
 </div>

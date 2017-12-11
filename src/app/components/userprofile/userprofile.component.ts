@@ -46,6 +46,7 @@ export class UserprofileComponent implements OnInit {
       this.userService.followUser(this.loggedInUser['_id'], this.userId)
           .subscribe(
               (data: any) => {
+                  location.reload(true);
                   console.log('Successfully Followed User');
               }
           );
@@ -55,6 +56,7 @@ export class UserprofileComponent implements OnInit {
         this.userService.unfollowUser(this.loggedInUser['_id'], this.userId)
             .subscribe(
                 (data: any) => {
+                    location.reload(true);
                     console.log('Successfully Followed User');
                 }
             );
