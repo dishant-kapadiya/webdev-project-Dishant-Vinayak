@@ -23,7 +23,7 @@
                         class="glyphicon glyphicon-user pull-right glyph-color"> Profile</span>
 
             </a>
-            <a class="navbar-brand pull-right" *ngIf="loggedIn" (click)="logout()">
+            <a class="navbar-brand pull-right" *ngIf="loggedIn" (click)="logout()" [routerLink]="['/home']">
                 <span
                         class="glyphicon glyphicon-log-out pull-right glyph-color" (click)="logout()"> Logout</span>
 
@@ -81,7 +81,7 @@
                 </div>
                 <div class="media-body">
                     <span class="pull-right"> {{movie.vote_average}}/10</span>
-                    <h2 class="media-heading">{{movie.title}} ({{movie.release_date | date: "yyyy"}})</h2>
+                    <a (click)="createMovie(movie.id, movie.title)"><h2 class="media-heading">{{movie.title}} ({{movie.release_date | date: "yyyy"}})</h2></a>
                     {{movie.overview}}
 
 
@@ -105,7 +105,7 @@
                 </div>
                 <div class="media-body">
                     <span class="pull-right"> {{movie.vote_average}}/10</span>
-                    <h2 class="media-heading">{{movie.title}} ({{movie.release_date | date: "yyyy"}})</h2>
+                    <a (click)="createMovie(movie.id, movie.title)"><h2 class="media-heading">{{movie.title}} ({{movie.release_date | date: "yyyy"}})</h2></a>
                     {{movie.overview}}
 
 
@@ -129,7 +129,7 @@
                 </div>
                 <div class="media-body">
                     <span class="pull-right"> {{movie.vote_average}}/10</span>
-                    <h2 class="media-heading">{{movie.title}} ({{movie.release_date | date: "yyyy"}})</h2>
+                    <a (click)="createMovie(movie.id, movie.title)"><h2 class="media-heading">{{movie.title}} ({{movie.release_date | date: "yyyy"}})</h2></a>
                     {{movie.overview}}
 
 

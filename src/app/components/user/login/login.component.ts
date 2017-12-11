@@ -29,7 +29,14 @@ export class LoginComponent implements OnInit {
           .subscribe(
               (user: any) => {
                   this.errorFlag = false;
-                  this.router.navigate(['/home']);
+                  if(user['role'] === 'admin') {
+                      this.router.navigate(['/admin']);
+                  }
+                  else if(user['role'] === 'moderator') {
+                      this.router.navigate(['/moderator']);
+                  } else {
+                      this.router.navigate(['/home']);
+                  }
               },
               (error: any) => {
                   this.errorFlag = true;
